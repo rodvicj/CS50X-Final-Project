@@ -1,0 +1,97 @@
+* {
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 400px;
+}
+
+/* load_mailbox start */
+#main_container {
+  display: flex;
+  flex-direction: column;
+  gap: .30em;
+}
+
+.sub_container {
+  display: flex;
+}
+
+.sub_container > div {
+  display: flex;
+  gap: 2em;
+  border: 1px solid black;
+  flex-grow: 1;
+  padding: .25em;
+  flex-wrap: wrap;
+}
+
+.sub_container > div:hover {
+  cursor: pointer;
+}
+
+.sub_container > div > div {
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.sub_container > button {
+  color: firebrick;
+}
+/* load_mailbox end */
+
+/* get_mail start */
+#mail-view {
+  flex-direction: column;
+  gap: .25rem;
+}
+
+#view_email_sub_container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* #view_email_sub_container { */
+/*   border: 1px solid gray; */
+/* } */
+
+#email_heading {
+  display: flex;
+  padding: .5em;
+  border: 1px solid gray;
+  justify-content: space-between;
+}
+
+#timestamp {
+  display: flex;
+  align-items: flex-end;
+}
+
+#view_email_body {
+  padding: .5em;
+  min-height: 15rem;
+  border: 1px solid gray;
+  margin-top: -1px;
+  text-align: justify;
+  white-space: pre-wrap;
+}
+
+#sender_recipients_container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: .5rem;
+}
+
+#archiveContainer {
+  display: flex;
+  justify-content: space-between;
+}
+/* get_mail end */
+
+/* reply_mail start */
+#compose-body {
+  white-space: pre-wrap;
+}
+/* reply_mail end */
