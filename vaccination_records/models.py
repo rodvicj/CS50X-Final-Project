@@ -32,10 +32,9 @@ class Personal_information(models.Model):
     address = models.CharField(max_length=255)
     contact_number = models.CharField(max_length=255)
     gender = models.CharField(max_length=255)
-    birthdate = models.DateField(help_text = "Date of birth")
+    birthdate = models.DateField(help_text="Date of birth")
     date_created = models.DateTimeField(auto_now_add=True)
     vaccine_infos = models.ManyToManyField(Vaccine_information, related_name="personal_info")
-
 
     def serialize(self):
         return {

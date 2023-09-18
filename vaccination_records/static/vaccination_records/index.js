@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
   get_records();
 });
 
-
 function aboutPage() {
   document.querySelector("#create-view").style.display = "none";
   document.querySelector("#record-view").style.display = "none";
@@ -45,13 +44,12 @@ function aboutPage() {
   table.className = "table";
   let tableBody = document.createElement("tbody");
 
-
   dict = {
     "Project name": "Vaccination Records",
-    "Name": "Rodvic Agustino",
-    "City": "Kalibo",
-    "Country": "Philippines"
-  }
+    Name: "Rodvic Agustino",
+    City: "Kalibo",
+    Country: "Philippines",
+  };
 
   let key = "";
 
@@ -59,9 +57,9 @@ function aboutPage() {
     let tableHead = document.createElement("th");
     let tableRow = document.createElement("tr");
     let tableData = document.createElement("td");
-    
-    key = Object.keys(dict)[i]
-    tableHead.innerHTML = Object.keys(dict)[i]
+
+    key = Object.keys(dict)[i];
+    tableHead.innerHTML = Object.keys(dict)[i];
     tableRow.appendChild(tableHead);
     tableData.innerHTML = dict[key];
     tableRow.appendChild(tableData);
@@ -105,12 +103,12 @@ async function add_record() {
     let dict = {};
 
     dict["dosage_sequence"] = document.querySelector(
-      `#${dosageSequence}`
+      `#${dosageSequence}`,
     ).value;
     dict["vaccine_brand"] = document.querySelector(`#${vaccineBrand}`).value;
     dict["vaccinator"] = document.querySelector(`#${vaccinator}`).value;
     dict["date_administered"] = document.querySelector(
-      `#${dateAdministered}`
+      `#${dateAdministered}`,
     ).value;
     vaccineInfos.push(dict);
   }
