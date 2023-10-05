@@ -11,7 +11,6 @@ from .models import User, Vaccine_information, Personal_information
 
 
 def index(request):
-
     # Authenticated users
     if request.user.is_authenticated:
         return render(request, "vaccination_records/index.html")
@@ -19,7 +18,6 @@ def index(request):
     # Everyone else is prompted to sign in
     else:
         return HttpResponseRedirect(reverse("vaccination_records:login"))
-
 
 
 @csrf_exempt
@@ -36,16 +34,15 @@ def get_record(request, record_id):
     if request.method == "GET":
         return JsonResponse(record.serialize())
     else:
-        return JsonResponse({
-            "error": "GET request required."
-        }, status=400)
+        return JsonResponse({"error": "GET request required."}, status=400)
 
 
 @csrf_exempt
 @login_required
 def get_records(request):
-
-    records = Personal_information.objects.filter(user=request.user).order_by("-date_created")
+    records = Personal_information.objects.filter(user=request.user).order_by(
+        "-date_created"
+    )
 
     return JsonResponse([record.serialize() for record in records], safe=False)
 
@@ -53,7 +50,6 @@ def get_records(request):
 @csrf_exempt
 @login_required
 def add_record(request):
-
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
 
@@ -66,7 +62,15 @@ def add_record(request):
         gender = data.get("gender", "")
         birthdate = data.get("birthdate", "")
 
-        personal_info = Personal_information.objects.create(user=request.user, first_name=first_name, last_name=last_name, address=address, contact_number=contact_number, gender=gender, birthdate=birthdate)
+        personal_info = Personal_information.objects.create(
+            user=request.user,
+            first_name=first_name,
+            last_name=last_name,
+            address=address,
+            contact_number=contact_number,
+            gender=gender,
+            birthdate=birthdate,
+        )
         personal_info.save()
         new_added = Personal_information.objects.get(pk=personal_info.id)
         jsonified_vaccine_infos = data.get("vaccine_infos", "")
@@ -75,10 +79,14 @@ def add_record(request):
         for info in vaccine_infos:
             # if ((info["dosage_sequence"] != "") and (info["date_administered"] != "") and (info["vaccine_brand"] != "") and (info["vaccinator"]) != ""):
             if ((info["dosage_sequence"]) and (info["date_administered"]) and (info["vaccine_brand"]) and (info["vaccinator"])):
-                new_vaccine_info = Vaccine_information.objects.create(dosage_sequence=info["dosage_sequence"], date_administered=info["date_administered"], vaccine_brand=info["vaccine_brand"], vaccinator=info["vaccinator"])
+                new_vaccine_info = Vaccine_information.objects.create(
+                    dosage_sequence=info["dosage_sequence"],
+                    date_administered=info["date_administered"],
+                    vaccine_brand=info["vaccine_brand"],
+                    vaccinator=info["vaccinator"],
+                )
                 new_vaccine_info.save()
                 new_added.vaccine_infos.add(new_vaccine_info)
-
 
         return JsonResponse({"message": "success"}, status=201)
 
@@ -88,7 +96,6 @@ def add_record(request):
 
 def login_view(request):
     if request.method == "POST":
-
         # Attempt to sign user in
         email = request.POST["email"]
         password = request.POST["password"]
@@ -99,10 +106,11 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("vaccination_records:index"))
         else:
-
-            return render(request, "vaccination_records/login.html", {
-                "message": "Invalid email and/or password."
-            })
+            return render(
+                request,
+                "vaccination_records/login.html",
+                {"message": "Invalid email and/or password."},
+            )
     else:
         return render(request, "vaccination_records/login.html")
 
@@ -120,9 +128,11 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "vaccination_records/register.html", {
-                "message": "Passwords must match."
-            })
+            return render(
+                request,
+                "vaccination_records/register.html",
+                {"message": "Passwords must match."},
+            )
 
         # Attempt to create new user
         try:
@@ -130,9 +140,11 @@ def register(request):
             user.save()
         except IntegrityError as e:
             print(e)
-            return render(request, "vaccination_records/register.html", {
-                "message": "Email address already taken."
-            })
+            return render(
+                request,
+                "vaccination_records/register.html",
+                {"message": "Email address already taken."},
+            )
         login(request, user)
         return HttpResponseRedirect(reverse("vaccination_records:index"))
     else:
