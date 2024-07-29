@@ -271,29 +271,43 @@ async function get_record(recordID) {
   let personalInfoHeader = document.createElement("h3");
   personalInfoHeader.innerHTML = `<h3>Personal Information</h3>`;
   container.append(personalInfoHeader);
-  let table1 = document.createElement("table");
-  table1.className = "table";
-  let tableBody = document.createElement("tbody");
+
+  const info__wrapper = document.createElement("div");
+  container.className = "info__wrapper";
+
+
+
+  let p1 = document.createElement("p");
+  let p2 = document.createElement("p");
 
   for (let i = 0; i < 6; i++) {
-    let tableHead = document.createElement("th");
     let tableRow = document.createElement("tr");
+    let tableHead = document.createElement("th");
     let tableData = document.createElement("td");
+
+
+    p1.innerHTML = names[i];
+    info__wrapper.append(p1);
 
     tableHead.innerHTML = names[i];
     tableRow.appendChild(tableHead);
 
+
+
     if (keys[i] === "birthday") {
       let dateStr = new Date(`${record[keys[i]]}`);
-      tableData.innerHTML = dateStr
+      p2.innerHTML = dateStr
         .toDateString()
         .split(" ")
         .slice(1)
         .join(" ");
-      tableRow.appendChild(tableData);
+      // tableRow.appendChild(tableData);
+      tableRow.appendChild(p2);
     } else {
-      tableData.innerHTML = record[keys[i]];
-      tableRow.appendChild(tableData);
+      // tableData.innerHTML = record[keys[i]];
+      p2.innerHTML = record[keys[i]];
+      // tableRow.appendChild(tableData);
+      tableRow.appendChild(p2);
     }
 
     tableBody.appendChild(tableRow);
