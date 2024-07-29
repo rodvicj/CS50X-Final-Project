@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.grid__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 1em;
+}
+
+.grid__header {
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+.grid__item {
+  border: 1px solid #000;
+  text-align: center;
+}
+
+.grid__title {
+  font-weight: 700;
+}

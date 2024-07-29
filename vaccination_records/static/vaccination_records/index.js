@@ -270,51 +270,50 @@ async function get_record(recordID) {
   container.className = "container";
   let personalInfoHeader = document.createElement("h3");
   personalInfoHeader.innerHTML = `<h3>Personal Information</h3>`;
-  container.append(personalInfoHeader);
+  personalInfoHeader.className = "grid__header";
+  // container.append(personalInfoHeader);
 
-  const info__wrapper = document.createElement("div");
-  container.className = "info__wrapper";
+  const grid__container = document.createElement("div");
+  grid__container.className = "grid__container";
 
-
-
-  let p1 = document.createElement("p");
-  let p2 = document.createElement("p");
+  grid__container.append(personalInfoHeader);
 
   for (let i = 0; i < 6; i++) {
-    let tableRow = document.createElement("tr");
-    let tableHead = document.createElement("th");
-    let tableData = document.createElement("td");
+    // let tableRow = document.createElement("tr");
+    // let tableHead = document.createElement("th");
+    // let tableData = document.createElement("td");
+    let p1 = document.createElement("p");
+    p1.className = "grid__title"
+    let p2 = document.createElement("p");
 
+    let grid__item = document.createElement("div");
+    grid__item.className = "grid__item";
 
     p1.innerHTML = names[i];
-    info__wrapper.append(p1);
+    grid__item.append(p1);
 
-    tableHead.innerHTML = names[i];
-    tableRow.appendChild(tableHead);
-
-
+    // tableHead.innerHTML = names[i];
+    // tableRow.appendChild(tableHead);
 
     if (keys[i] === "birthday") {
       let dateStr = new Date(`${record[keys[i]]}`);
-      p2.innerHTML = dateStr
-        .toDateString()
-        .split(" ")
-        .slice(1)
-        .join(" ");
+      p2.innerHTML = dateStr.toDateString().split(" ").slice(1).join(" ");
       // tableRow.appendChild(tableData);
-      tableRow.appendChild(p2);
+      grid__item.appendChild(p2);
     } else {
       // tableData.innerHTML = record[keys[i]];
       p2.innerHTML = record[keys[i]];
       // tableRow.appendChild(tableData);
-      tableRow.appendChild(p2);
+      grid__item.appendChild(p2);
     }
 
-    tableBody.appendChild(tableRow);
+    // tableBody.appendChild(tableRow);
+    grid__container.appendChild(grid__item);
   }
 
-  table1.appendChild(tableBody);
-  container.append(table1);
+  // table1.appendChild(tableBody);
+  container.append(grid__container);
+  // container.append(table1);
   let br1 = document.createElement("br");
   let hr = document.createElement("hr");
   container.append(br1);
