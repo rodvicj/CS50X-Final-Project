@@ -6,22 +6,110 @@ body {
   box-sizing: border-box;
 }
 
+.container--max-width {
+  margin: 0 auto;
+}
+
+/* min-width: 768px nav change */
+
+@media (min-width: 768px) {
+  .container--max-width {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container--max-width {
+    max-width: 940px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container--max-width {
+    max-width: 1140px;
+  }
+}
+
+.record__container {
+  margin: 0;
+  padding: 0;
+}
+
 .grid__container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  grid-gap: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* grid-template-columns: minmax(250px, 1ft) minmax(150px, 1ft) minmax(150px, */
+  /*     1ft); */
+  grid-gap: 0.5em;
+  margin: 0 auto;
+  max-width: 930px;
 }
 
 .grid__header {
   text-align: center;
   grid-column: 1 / -1;
+  /* border: 1px solid #000; */
 }
 
 .grid__item {
-  border: 1px solid #000;
-  text-align: center;
+  /* border: 1px solid #000; */
+  text-align: left;
+  padding: 2em;
 }
 
 .grid__title {
+  margin: 0;
+  text-align: center;
   font-weight: 700;
+  color: #fff;
+  background-color: #343a40;
+  border-color: #454d55;
+  padding: 0.25em;
+}
+
+.grid__content {
+  margin: 0;
+  padding: 0.5em 0;
+  text-align: center;
+}
+
+.grid__hr {
+  margin: 0 auto;
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.vaccine-info__container {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+  /* grid-template-columns: repeat(4, minmax(100px, 1fr)); */
+  grid-template-columns: repeat(4, minmax(min-content, 1fr));
+  margin: 0 auto;
+  /* max-width: 95%; */
+  text-align: center;
+  /* justify-content: center; */
+  grid-gap: 0.25em;
+}
+
+.vaccine-info__title {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.vaccine-info__header {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #454d55;
+}
+
+@media (min-width: 480px) {
+  .grid__container {
+    gap: 0;
+    /* grid-template-columns: minmax(130px, 300px) minmax(130px, 300px) minmax(200px, */
+    /*     300px); */
+  }
+
+  .grid__item {
+    padding: 0.25em;
+  }
 }
