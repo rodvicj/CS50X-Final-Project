@@ -315,22 +315,6 @@ async function get_record(recordID) {
   let vaccineInfoHeader = document.createElement("h3");
   vaccineInfoHeader.innerHTML = "Vaccine Information";
   vaccineInfoHeader.className = "vaccine-info__title";
-  // container.append(vaccineInfoHeader);
-  // let table2 = document.createElement("table");
-  // table2.className = "table";
-
-  // //create table header
-  // let tableHead = document.createElement("thead");
-  // let tableRow = document.createElement("tr");
-  // let dosageSequence = document.createElement("th");
-  // let gender = document.createElement("th");
-  // let vaccineBrand = document.createElement("th");
-  // let vaccinator = document.createElement("th");
-  // tableHead.className = "thead-dark";
-  // dosageSequence.scope = "col";
-  // gender.scope = "col";
-  // vaccineBrand.scope = "col";
-  // vaccinator.scope = "col";
 
   let vaccineInfoContainer = document.createElement("div");
   vaccineInfoContainer.className = "vaccine-info__container";
@@ -340,10 +324,10 @@ async function get_record(recordID) {
   let vaccineBrand = document.createElement("p");
   let vaccinator = document.createElement("p");
 
-  dosageSequence.className = "vaccine-info__header";
-  gender.className = "vaccine-info__header";
-  vaccineBrand.className = "vaccine-info__header";
-  vaccinator.className = "vaccine-info__header";
+  // dosageSequence.className = "vaccine-info__header vaccine-info__header-1";
+  // gender.className = "vaccine-info__header vaccine-info__header-2";
+  // vaccineBrand.className = "vaccine-info__header vaccine-info__header-3";
+  // vaccinator.className = "vaccine-info__header vaccine-info__header-4";
 
   dosageSequence.innerHTML = "Dosage Sequence";
   gender.innerHTML = "Date";
@@ -351,32 +335,41 @@ async function get_record(recordID) {
   vaccinator.innerHTML = "Name of vaccinator";
 
   vaccineInfoContainer.append(vaccineInfoHeader);
-  vaccineInfoContainer.append(dosageSequence);
-  vaccineInfoContainer.append(gender);
-  vaccineInfoContainer.append(vaccineBrand);
-  vaccineInfoContainer.append(vaccinator);
 
-  // tableRow.appendChild(dosageSequence);
-  // tableRow.appendChild(gender);
-  // tableRow.appendChild(vaccineBrand);
-  // tableRow.appendChild(vaccinator);
-  // tableHead.appendChild(tableRow);
-  // table2.appendChild(tableHead);
+  const headers = [dosageSequence, gender, vaccineBrand, vaccinator];
 
-  // let tBody = document.createElement("tbody");
+  for (let i = 0; i < headers.length; i++) {
+    let div = document.createElement("div");
+    div.className = "vaccine-info__header-wrapper";
+    div.append(headers[i]);
+    vaccineInfoContainer.append(div);
+  }
+
+  // headers.map((header) => {
+  //   let div = document.createElement("div");
+  //   div.className = "vaccine-info__header-wrapper";
+  //   div.append(header);
+  //   vaccineInfoContainer.append(div);
+  // });
+
+  // vaccineInfoContainer.append(dosageSequence);
+  // vaccineInfoContainer.append(gender);
+  // vaccineInfoContainer.append(vaccineBrand);
+  // vaccineInfoContainer.append(vaccinator);
 
   record.vaccine_infos.map((record) => {
-    // let tr = document.createElement("tr");
-    // tBody.appendChild(tr);
-
     let name = document.createElement("p");
     let gender = document.createElement("p");
     let date = document.createElement("p");
     let vaccinator = document.createElement("p");
-
     let hr1 = document.createElement("hr");
-    hr1.className = "grid__hr"
 
+    name.className = "vaccine-info__values";
+    gender.className = "vaccine-info__values";
+    date.className = "vaccine-info__values";
+    vaccinator.className = "vaccine-info__values";
+
+    hr1.className = "grid__hr";
     name.innerHTML = `${record.dosage_sequence}`;
     gender.innerHTML = new Date(`${record.date_administered}`)
       .toDateString()
@@ -386,20 +379,11 @@ async function get_record(recordID) {
     date.innerHTML = `${record.vaccine_brand}`;
     vaccinator.innerHTML = `${record.vaccinator}`;
 
-    // tr.appendChild(name);
-    // tr.appendChild(gender);
-    // tr.appendChild(date);
-    // tr.appendChild(vaccinator);
-
     vaccineInfoContainer.append(name);
     vaccineInfoContainer.append(gender);
     vaccineInfoContainer.append(date);
     vaccineInfoContainer.append(vaccinator);
-
     vaccineInfoContainer.append(hr1);
-
-    // table2.appendChild(tBody);
-    // vaccineInfoContainer.append(tBody);
   });
 
   container.append(vaccineInfoContainer);

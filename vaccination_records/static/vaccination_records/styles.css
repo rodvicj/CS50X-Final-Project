@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  line-height: 1.5;
 }
 
 * {
@@ -24,11 +25,11 @@ body {
   }
 }
 
-@media (min-width: 1200px) {
-  .container--max-width {
-    max-width: 1140px;
-  }
-}
+/* @media (min-width: 1200px) { */
+/*   .container--max-width { */
+/*     max-width: 1140px; */
+/*   } */
+/* } */
 
 .record__container {
   margin: 0;
@@ -81,35 +82,81 @@ body {
 
 .vaccine-info__container {
   display: grid;
-  /* grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
-  /* grid-template-columns: repeat(4, minmax(100px, 1fr)); */
   grid-template-columns: repeat(4, minmax(min-content, 1fr));
-  margin: 0 auto;
-  /* max-width: 95%; */
-  text-align: center;
-  /* justify-content: center; */
-  grid-gap: 0.25em;
+  grid-template-areas:
+    "title title title title"
+    "header1 header2 header3 header4";
+  align-items: center;
 }
 
 .vaccine-info__title {
+  grid-area: title;
   grid-column: 1 / -1;
-  text-align: center;
+  justify-self: center;
+  margin: 0;
+  padding: 0.5em;
+}
+
+.vaccine-info__header-1 {
+  grid-area: header1;
+}
+
+.vaccine-info__header-2 {
+  grid-area: header2;
+}
+
+.vaccine-info__header-3 {
+  grid-area: header3;
+}
+
+.vaccine-info__header-4 {
+  grid-area: header4;
+}
+
+.vaccine-info__header-wrapper {
+  display: flex;
+   align-items: center;
+  color: #fff;
+  background-color: #343a40;
+  border-color: #454d55;
+  height: 100%;
+  padding: 0.5em 0.20em;
+}
+
+.vaccine-info__header-wrapper>p {
+  margin: 0;
+  font-weight: 700;
 }
 
 .vaccine-info__header {
   color: #fff;
   background-color: #343a40;
   border-color: #454d55;
+  margin: 0;
+}
+
+.vaccine-info__date {
+  align-self: center;
+  justify-self: center;
+}
+
+.vaccine-info__values {
+  font-size: 0.9rem;
+  /* justify-self: center; */
+  margin: 0;
+  padding: 0.25em;
 }
 
 @media (min-width: 480px) {
   .grid__container {
     gap: 0;
-    /* grid-template-columns: minmax(130px, 300px) minmax(130px, 300px) minmax(200px, */
-    /*     300px); */
   }
 
   .grid__item {
     padding: 0.25em;
+  }
+
+  .vaccine-info__values {
+    font-size: 1rem;
   }
 }
