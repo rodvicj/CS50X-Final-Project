@@ -95,12 +95,16 @@ async function add_record() {
   let vaccinator = "vaccinator0";
   let dateAdministered = "dateAdministered0";
 
-  for (let i = 0; i < 4; i++) {
+  // TODO: change to dynamic array length
+  for (let i = 0; i < 1; i++) {
     dosageSequence = dosageSequence.slice(0, -1) + `${i + 1}`;
     vaccineBrand = vaccineBrand.slice(0, -1) + `${i + 1}`;
     vaccinator = vaccinator.slice(0, -1) + `${i + 1}`;
     dateAdministered = dateAdministered.slice(0, -1) + `${i + 1}`;
     let dict = {};
+
+    // console.log("dosageSequence current value: ", dosageSequence);
+    // console.log("dosage value: ", document.querySelector(dosageSequence).value);
 
     dict["dosage_sequence"] = document.querySelector(
       `#${dosageSequence}`,
@@ -140,12 +144,10 @@ async function add_record() {
 }
 
 async function get_records() {
-  // Show the records-view and hide other views
   document.querySelector("#create-view").style.display = "none";
   document.querySelector("#record-view").style.display = "none";
   document.querySelector("#about-view").style.display = "none";
   document.querySelector("#records-view").style.display = "block";
-
   document.querySelector("#records-view").innerHTML = "";
 
   const recordsView = document.querySelector("#records-view");
@@ -161,54 +163,64 @@ async function get_records() {
   container.className = "container";
 
   if (json.length === 0) {
-    // console.log("empty json", json);
     const notice = document.createElement("p");
     notice.innerHTML =
       "No records found, go to 'Create new record' to submit vaccination information";
     container.append(notice);
     recordsView.append(container);
   } else {
-    //create table
-    let table = document.createElement("table");
-    table.className = "table";
-    //create table header
-    let tableHead = document.createElement("thead");
-    let tableRow = document.createElement("tr");
-    let dosageSequence = document.createElement("th");
-    let gender = document.createElement("th");
-    let vaccineBrand = document.createElement("th");
-    let latestVaccine = document.createElement("th");
+    let vaccineRecordsContainer = document.createElement("div");
 
-    dosageSequence.scope = "col";
-    gender.scope = "col";
-    vaccineBrand.scope = "col";
-    latestVaccine.scope = "col";
+    // vaccineRecordsContainer.setAttribute(
+    //   "class",
+    //   "grid-container vaccine-records__container",
+    // );
 
-    dosageSequence.innerHTML = "Name";
-    gender.innerHTML = "Gender";
-    latestVaccine.innerHTML = "Last vaccinated";
-    vaccineBrand.innerHTML = "Created";
+    vaccineRecordsContainer.className = "grid-container vaccine-records__container";
 
-    tableRow.appendChild(dosageSequence);
-    tableRow.appendChild(gender);
-    tableRow.appendChild(latestVaccine);
-    tableRow.appendChild(vaccineBrand);
-    tableHead.appendChild(tableRow);
-    table.appendChild(tableHead);
+    let vaccineRecordsWrapper = document.createElement("div");
+    vaccineRecordsWrapper.className = "vaccine-records__wrapper";
 
-    let tableBody = document.createElement("tbody");
+    let vaccineRecordsTitle = document.createElement("p");
+    vaccineRecordsTitle.innerHTML = "Vaccination Records";
+    vaccineRecordsTitle.className = "vaccine-info__title";
+
+    vaccineRecordsWrapper.append(vaccineRecordsTitle);
+
+    let dosageSequence = document.createElement("p");
+    let gender = document.createElement("p");
+    let vaccineBrand = document.createElement("p");
+    let latestVaccine = document.createElement("p");
+
+    dosageSequence.innerHTML = "name";
+    gender.innerHTML = "gender";
+    latestVaccine.innerHTML = "last vaccinated";
+    vaccineBrand.innerHTML = "date created";
+
+    const headersName = [dosageSequence, gender, latestVaccine, vaccineBrand];
+
+    for (let i = 0; i < headersName.length; i++) {
+      let headerWrapper = document.createElement("div");
+      headerWrapper.className = "vaccine-records__headers";
+      headersName[i].className = "vaccine-records__header";
+      headerWrapper.append(headersName[i]);
+      vaccineRecordsWrapper.append(headerWrapper);
+    }
 
     json.map((record) => {
-      let tr = document.createElement("tr");
-      tableBody.appendChild(tr);
+      console.log("record", record);
 
-      let name = document.createElement("td");
-      let gender = document.createElement("td");
-      let latestVac = document.createElement("td");
-      let date = document.createElement("td");
+      let hr1 = document.createElement("hr");
+      hr1.className = "grid__hr";
+
+      let name = document.createElement("p");
+      let gender = document.createElement("p");
+      let latestVac = document.createElement("p");
+      let date = document.createElement("p");
+
       name.innerHTML = `${record.name}`;
       gender.innerHTML = `${record.gender}`;
-      date.innerHTML = `${record.date_created}`;
+      date.innerHTML = `${record.date_created.slice(0, 11)}`;
 
       record.vaccine_infos.map((info) => {
         if (info.date_administered === undefined) {
@@ -223,18 +235,20 @@ async function get_records() {
         }
       });
 
-      tr.appendChild(name);
-      tr.appendChild(gender);
-      tr.appendChild(latestVac);
-      tr.appendChild(date);
+      vaccineRecordsWrapper.append(name);
+      vaccineRecordsWrapper.append(gender);
+      vaccineRecordsWrapper.append(latestVac);
+      vaccineRecordsWrapper.append(date);
+      vaccineRecordsWrapper.append(hr1);
 
-      table.appendChild(tableBody);
-      container.append(table);
-      recordsView.innerHTML = "";
-      recordsView.append(container);
-
-      tr.addEventListener("click", () => get_record(record.id));
+      name.addEventListener("click", () => get_record(record.id));
+      gender.addEventListener("click", () => get_record(record.id));
+      latestVac.addEventListener("click", () => get_record(record.id));
+      date.addEventListener("click", () => get_record(record.id));
     });
+
+    vaccineRecordsContainer.append(vaccineRecordsWrapper);
+    recordsView.append(vaccineRecordsContainer);
   }
 }
 
@@ -267,9 +281,10 @@ async function get_record(recordID) {
   ];
 
   const container = document.createElement("div");
-  container.className = "record__container";
+  // container.className = "record__container";
+  container.setAttribute("class", "grid-container record__container");
   let personalInfoHeader = document.createElement("h3");
-  personalInfoHeader.innerHTML = `<h3>Personal Information</h3>`;
+  personalInfoHeader.innerHTML = "Personal Information";
   personalInfoHeader.className = "grid__header";
   // container.append(personalInfoHeader);
 
@@ -294,6 +309,10 @@ async function get_record(recordID) {
     if (keys[i] === "birthday") {
       let dateStr = new Date(`${record[keys[i]]}`);
       p2.innerHTML = dateStr.toDateString().split(" ").slice(1).join(" ");
+      grid__item.appendChild(p2);
+    } else if (keys[i] === "date_created") {
+      // p2.innerHTML = `${record.date_created.slice(0, 11)}`;
+      p2.innerHTML = record[keys[i]].slice(0, 11);
       grid__item.appendChild(p2);
     } else {
       p2.innerHTML = record[keys[i]];
@@ -332,7 +351,7 @@ async function get_record(recordID) {
   dosageSequence.innerHTML = "Dosage Sequence";
   gender.innerHTML = "Date";
   vaccineBrand.innerHTML = "Vaccine Brand";
-  vaccinator.innerHTML = "Name of vaccinator";
+  vaccinator.innerHTML = "Name of Vaccinator";
 
   vaccineInfoContainer.append(vaccineInfoHeader);
 
@@ -416,10 +435,14 @@ function newRecord_form() {
   let dateAdministered = "dateAdministered0";
 
   // future reference: change to vaccine_Infos.length to make it dynamic
-  for (let i = 0; i < 4; i++) {
+  // for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 1; i++) {
     vaccineBrand = vaccineBrand.slice(0, -1) + `${i + 1}`;
     vaccinator = vaccinator.slice(0, -1) + `${i + 1}`;
     dateAdministered = dateAdministered.slice(0, -1) + `${i + 1}`;
+
+    // console.log("vaccineBrand current value: ", vaccineBrand);
+    // console.log("vaccine value: ", document.querySelector(`#${vaccineBrand}`).value);
 
     document.querySelector(`#${vaccineBrand}`).value = "";
     document.querySelector(`#${vaccinator}`).value = "";

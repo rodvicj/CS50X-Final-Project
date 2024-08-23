@@ -1,253 +1,193 @@
 {% extends "vaccination_records/layout.html" %}
 
 {% load static %}
-
 {% block body %}
   <h5>{{ request.user.username }}</h5>
-
   <button class="btn btn-sm btn-outline-primary" id="records">Vaccination records</button>
   <button class="btn btn-sm btn-outline-primary" id="create">Create new record</button>
   <button class="btn btn-sm btn-outline-primary" id="about">About</button>
   <a class="btn btn-sm btn-outline-primary"
      href="{% url 'vaccination_records:logout' %}">Log Out</a>
   <hr />
-  <div id="record-view"></div>
-  <div id="records-view"></div>
-  <div id="about-view"></div>
-
-  <div id="create-view">
-    <div class="row">
-      <div class="col-md-12 order-md-1">
-        <h3 class="mb-3">Personal Information</h3>
-        <form id="recordsForm">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="firstName">First name</label>
-              <input type="text"
-                     class="form-control"
-                     id="firstName"
-                     placeholder=""
-                     value=""
-                     required="" />
-              <div class="invalid-feedback">Valid first name is required.</div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="lastName">Last name</label>
-              <input type="text"
-                     class="form-control"
-                     id="lastName"
-                     placeholder=""
-                     value=""
-                     required="" />
-              <div class="invalid-feedback">Valid last name is required.</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-9 mb-3">
-              <label for="address">Address</label>
-              <input type="text"
-                     class="form-control"
-                     id="address"
-                     placeholder=""
-                     required="" />
-              <div class="invalid-feedback">Please select a valid country.</div>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="zipCode">Zip Code</label>
-              <input type="text"
-                     class="form-control"
-                     id="zipCode"
-                     placeholder=""
-                     required="" />
-              <div class="invalid-feedback">Zip code required.</div>
-            </div>
-          </div>
-          <div class="row">
-
-            <div class="col-md-4 mb-3">
-              <label for="date">Date</label>
-              <div class="input-group date" id="datepicker">
-                <input type="text" id="birthdate" class="form-control" />
-                <span class="input-group-append">
-                  <span class="input-group-text bg-white">
-                    <i class="fa fa-calendar"></i>
+  <main role="main">
+    <section>
+      <div id="record-view"></div>
+    </section>
+    <section>
+      <div id="records-view"></div>
+    </section>
+    <section>
+      <div id="about-view"></div>
+    </section>
+    <section>
+      <div id="create-view">
+        <div class="new-record__container">
+          <h3 class="new-record__title">Personal Information</h3>
+          <form id="recordsForm" class="new-record__form">
+            <div class="new-record__wrapper">
+              <div class="new-record__firstname">
+                <div>
+                  <label class="new-record__firstname-label" for="firstName">
+                    First name<span class="star">&nbsp;*</span>
+                  </label>
+                </div>
+                <input class="new-record__firstname-input"
+                       type="text"
+                       id="firstName"
+                       placeholder=""
+                       value=""
+                       required="" />
+              </div>
+              <div class="new-record__lastname">
+                <div>
+                  <label class="new-record__lastname-label" for="lastName">
+                    Last name<span class="star">&nbsp;*</span>
+                  </label>
+                </div>
+                <input class="new-record__lastname-input"
+                       type="text"
+                       id="lastName"
+                       placeholder=""
+                       value=""
+                       required="" />
+              </div>
+              <div class="new-record__address">
+                <div>
+                  <label class="new-record__address-label" for="address">
+                    Address<span class="star">&nbsp;*</span>
+                  </label>
+                </div>
+                <input class="new-record__address-input"
+                       type="text"
+                       id="address"
+                       placeholder=""
+                       required="" />
+              </div>
+              <div class="new-record__zipcode">
+                <div>
+                  <label class="new-record__zipcode-label" for="zipCode">
+                    Zip Code<span class="star">&nbsp;*</span>
+                  </label>
+                </div>
+                <input class="new-record__zipcode-input"
+                       type="text"
+                       id="zipCode"
+                       placeholder=""
+                       required="" />
+              </div>
+              <div class="new-record__date">
+                <div>
+                  <label class="new-record__date-label" for="date">
+                    Date<span class="star">&nbsp;*</span>
+                  </label>
+                </div>
+                <div class="new-record__date-wrapper input-group date" id="datepicker">
+                  <input class="new-record__date-input" type="text" id="birthdate" />
+                  <span class="new-record__date-icon-wrapper input-group-append">
+                    <span class="input-group-text bg-white">
+                      <i class="fa fa-calendar"></i>
+                    </span>
                   </span>
-                </span>
-              </div>
-            </div>
-
-            <div class="col-md-4 mb-3">
-              <label for="contactNumber">Contact Number</label>
-              <input type="text"
-                     class="form-control"
-                     id="contactNumber"
-                     placeholder=""
-                     required="" />
-              <div class="invalid-feedback">contact number required.</div>
-            </div>
-
-            <div class="col-md-4 mb-3">
-              <label for="gdr">Gender</label>
-
-              <div id="gdr" class="form-control d-flex flex-row border-0">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input"
-                         type="radio"
-                         name="gender"
-                         id="inlineRadio1"
-                         value="female"
-                         checked="checked" />
-                  <label class="form-check-label" for="inlineRadio1">Female</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input"
-                         type="radio"
-                         name="gender"
-                         id="inlineRadio2"
-                         value="male" />
-                  <label class="form-check-label" for="inlineRadio2">Male</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input"
-                         type="radio"
-                         name="gender"
-                         id="other"
-                         value="other" />
-                  <label class="form-check-label" for="inlineRadio2">Other</label>
                 </div>
               </div>
+              <div class="new-record__contact">
+                <div>
+                  <label class="new-record__contact-label" for="contactNumber">
+                    Contact Number<span class="star">&nbsp;*</span>
+                  </label>
+                </div>
+                <input class="new-record__contact-input"
+                       type="text"
+                       id="contactNumber"
+                       placeholder=""
+                       required="" />
+              </div>
+              <div class="new-record__gender">
+                <div>
+                  <label class="new-record__gender-label" for="gdr">
+                    Gender<span class="star">&nbsp;*</span>
+                  </label>
+                </div>
+                <div id="gdr" style="display: flex; gap: 1em; ">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="gender"
+                           id="inlineRadio1"
+                           value="female"
+                           checked="checked" />
+                    <label class="form-check-label" for="inlineRadio1">Female</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="gender"
+                           id="inlineRadio2"
+                           value="male" />
+                    <label class="form-check-label" for="inlineRadio2">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="gender"
+                           id="other"
+                           value="other" />
+                    <label class="form-check-label" for="inlineRadio2">Other</label>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="new-record__wrapper2">
+              <h3 class="new-record__title">Vaccine Information</h3>
 
-          </div>
-          <hr />
-          <div class="row">
-            <h3 class="mb-3">Vaccine Information</h3>
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-1 px-1">
-              <label for="dosageSequence1">Dosage Sequence</label>
+              <!-- <p class="new-record__headers">Dosage Sequence</p> -->
+              <!-- <p class="new-record__headers">Vaccine Brand</p> -->
+              <!-- <p class="new-record__headers">Name of vaccinator</p> -->
+              <!-- <p class="new-record__headers">Date</p> -->
+
+              <label class="new-record__dosage-sequence-label" for="dosageSequence1">Dosage Sequence</label>
               <input type="text"
-                     class="form-control"
+                     class="new-record__dosage-sequence-input"
                      id="dosageSequence1"
                      value="First Dose"
                      required="" />
-              <div class="invalid-feedback">Dosage sequence required.</div>
-            </div>
-            <div class="col-md-3 mb-1 px-1">
-              <label for="vaccineBrand1">Vaccine Brand</label>
+
+              <label class="new-record__vaccine-brand-label" for="vaccineBrand1">Vaccine Brand</label>
               <input type="text"
-                     class="form-control"
+                     class="new-record__vaccine-brand-input"
                      id="vaccineBrand1"
                      placeholder=""
                      required="" />
-              <div class="invalid-feedback">Vaccine brand required.</div>
-            </div>
-            <div class="col-md-4 mb-1 px-1">
-              <label for="vaccinator1">Name of vaccinator</label>
+
+              <label class="new-record__vaccinator-label" for="vaccinator1">Vaccinator</label>
               <input type="text"
-                     class="form-control"
+                     class="new-record__vaccinator-input"
                      id="vaccinator1"
                      placeholder=""
                      required="" />
-              <div class="invalid-feedback">Name of vaccinator required.</div>
-            </div>
 
-            <div class="col-md-2 mb-1 px-1">
-              <label for="date">Date</label>
-              <div class="input-group date" id="datepicker1">
-                <input type="text" id="dateAdministered1" class="form-control" required="" />
-                <span class="input-group-append">
-                  <span class="input-group-text bg-white">
-                    <i class="fa fa-calendar"></i>
+              <label class="new-record__date-label" for="dateAdministered1">date administered</label>
+              <div class="new-record__date">
+                <div class="new-record__date-wrapper input-group date" id="datepicker1">
+                  <input class="new-record__date-input"
+                         type="text"
+                         id="dateAdministered1"
+                         required="" />
+                  <span class="new-record__date-icon-wrapper input-group-append">
+                    <span class="input-group-text bg-white">
+                      <i class="fa fa-calendar"></i>
+                    </span>
                   </span>
-                </span>
+                </div>
               </div>
-              <div class="invalid-feedback">Date administered required.</div>
-            </div>
 
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-1 px-1">
-              <input type="text"
-                     class="form-control"
-                     id="dosageSequence2"
-                     value="Second Dose" />
             </div>
-            <div class="col-md-3 mb-1 px-1">
-              <input type="text" class="form-control" id="vaccineBrand2" placeholder="" />
-            </div>
-            <div class="col-md-4 mb-1 px-1">
-              <input type="text" class="form-control" id="vaccinator2" placeholder="" />
-            </div>
-
-            <div class="col-md-2 mb-1 px-1">
-              <div class="input-group date" id="datepicker2">
-                <input type="text" id="dateAdministered2" class="form-control" />
-                <span class="input-group-append">
-                  <span class="input-group-text bg-white">
-                    <i class="fa fa-calendar"></i>
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-1 px-1">
-              <input type="text"
-                     class="form-control"
-                     id="dosageSequence3"
-                     value="First Booster" />
-            </div>
-            <div class="col-md-3 mb-1 px-1">
-              <input type="text" class="form-control" id="vaccineBrand3" placeholder="" />
-            </div>
-            <div class="col-md-4 mb-1 px-1">
-              <input type="text" class="form-control" id="vaccinator3" placeholder="" />
-            </div>
-
-            <div class="col-md-2 mb-1 px-1">
-              <div class="input-group date" id="datepicker3">
-                <input type="text" id="dateAdministered3" class="form-control" />
-                <span class="input-group-append">
-                  <span class="input-group-text bg-white">
-                    <i class="fa fa-calendar"></i>
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-1 px-1">
-              <input type="text"
-                     class="form-control"
-                     id="dosageSequence4"
-                     value="Second Booster" />
-            </div>
-            <div class="col-md-3 mb-1 px-1">
-              <input type="text" class="form-control" id="vaccineBrand4" placeholder="" />
-            </div>
-            <div class="col-md-4 mb-1 px-1">
-              <input type="text" class="form-control" id="vaccinator4" placeholder="" />
-            </div>
-            <div class="col-md-2 mb-1 px-1">
-              <div class="input-group date" id="datepicker4">
-                <input type="text" id="dateAdministered4" class="form-control" />
-                <span class="input-group-append">
-                  <span class="input-group-text bg-white">
-                    <i class="fa fa-calendar"></i>
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-          <hr />
-          <input type="submit" class="btn btn-primary" />
-        </form>
+            <input type="submit" class="btn btn-primary" />
+          </form>
+        </div>
       </div>
-    </div>
-
-  </div>
-
+    </section>
+  </main>
 {% endblock %}
 
 {% block script %}
