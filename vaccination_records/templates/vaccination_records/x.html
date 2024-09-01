@@ -1,0 +1,133 @@
+
+            <input type="text"
+                   class="new-record__dosage-sequence"
+                   id="dosageSequence2"
+                   value="Second Dose" />
+            <input type="text"
+                   class="new-record__vaccine-brand"
+                   id="vaccineBrand2"
+                   placeholder="" />
+            <input type="text"
+                   class="new-record__vaccinator"
+                   id="vaccinator2"
+                   placeholder="" />
+            <div class="new-record__date">
+              <div class="input-group date" id="datepicker2">
+                <input type="text" id="dateAdministered2" class="" />
+                <span class="input-group-append">
+                  <span class="input-group-text bg-white">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <input type="text"
+                   class="new-record__dosage-sequence"
+                   id="dosageSequence3"
+                   value="First Booster" />
+            <input type="text"
+                   class="new-record__vaccine-brand"
+                   id="vaccineBrand3"
+                   placeholder="" />
+            <input type="text"
+                   class="new-record__vaccinator"
+                   id="vaccinator3"
+                   placeholder="" />
+
+            <div class="new-record__date">
+              <div class="input-group date" id="datepicker3">
+                <input type="text" id="dateAdministered3" class="" />
+                <span class="input-group-append">
+                  <span class="input-group-text bg-white">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <input type="text"
+                   class="new-record__dosage-sequence"
+                   id="dosageSequence4"
+                   value="Second Booster" />
+            <input type="text"
+                   class="new-record__vaccine-brand"
+                   id="vaccineBrand4"
+                   placeholder="" />
+            <input type="text"
+                   class="new-record__vaccinator"
+                   id="vaccinator4"
+                   placeholder="" />
+            <div class="new-record__date">
+              <div class="input-group date" id="datepicker4">
+                <input type="text" id="dateAdministered4" class="" />
+                <span class="input-group-append">
+                  <span class="input-group-text bg-white">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </span>
+              </div>
+            </div>
+
+{% block script %}
+  <script src="{% static 'vaccination_records/index.js' %}"></script>
+  <script src="{% static 'vaccination_records/pikaday.js' %}"></script>
+  <script type="text/javascript">
+var picker = new Pikaday({
+    field: document.getElementById('birthdate'),
+    format: 'YYYY-MM-DD',
+    toString(date, format) {
+        // you should do formatting based on the passed format,
+        // but we will just return 'D/M/YYYY' for simplicity
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    },
+    parse(dateString, format) {
+        // dateString is the result of `toString` method
+        const parts = dateString.split('/');
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1;
+        const year = parseInt(parts[2], 10);
+        return new Date(year, month, day);
+    }
+});
+
+
+
+    var picker = new Pikaday({
+      field: document.getElementById("birthdate"),
+      format: 'D/M/YYYY',
+      toString(date, format) {
+          // you should do formatting based on the passed format,
+          // but we will just return 'D/M/YYYY' for simplicity
+          const day = date.getDate();
+          const month = date.getMonth() + 1;
+          const year = date.getFullYear();
+          return `${day}/${month}/${year}`;
+      }
+      parse(dateString, format) {
+          // dateString is the result of `toString` method
+          const parts = dateString.split('/');
+          const day = parseInt(parts[0], 10);
+          const month = parseInt(parts[1], 10) - 1;
+          const year = parseInt(parts[2], 10);
+          return new Date(year, month, day);
+      }
+
+
+
+      firstDay: 1,
+      minDate: new Date(),
+      // maxDate: new Date(2020, 12, 31),
+      yearRange: [1900, 2024],
+    });
+
+    var picker = new Pikaday({
+      field: document.getElementById("datepicker1"),
+      format: 'YYYY-MM-DD',
+      yearRange: [2020, new Date().getFullYear()],
+    });
+
+  </script>
+{% endblock %}

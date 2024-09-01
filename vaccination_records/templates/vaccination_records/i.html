@@ -1,0 +1,243 @@
+{% extends "vaccination_records/layout.html" %}
+
+{% load static %}
+{% block body %}
+<h5>{{ request.user.username }}</h5>
+<button class="btn btn-sm btn-outline-primary" id="records">Vaccination records</button>
+<button class="btn btn-sm btn-outline-primary" id="create">Create new record</button>
+<button class="btn btn-sm btn-outline-primary" id="about">About</button>
+<a class="btn btn-sm btn-outline-primary" href="{% url 'vaccination_records:logout' %}">Log Out</a>
+<hr />
+<main role="main">
+  <section>
+    <div id="record-view"></div>
+  </section>
+  <section>
+    <div id="records-view"></div>
+  </section>
+  <section>
+    <div id="about-view"></div>
+  </section>
+  <section>
+    <div id="create-view">
+      <div class="grid__container new-record__container">
+        <h4 class="new-record__title">Personal Information</h3>
+          <form id="recordsForm" class="new-record__form">
+            <div class="new-record__wrapper">
+
+              <div id="google-container" class="google-container">
+                <input id="google-input" data-key="first_name" class="google-input" type="text" placeholder=""
+                  required="" name="firstName" aria-label="First name" />
+                <div id="google-label" class="google-label" aria-hidden="true">First Name</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="google-input" data-key="last_name" class="google-input" type="text" placeholder=""
+                  required="" name="lastName" aria-label="Last name" />
+                <div id="google-label" class="google-label" aria-hidden="true">Last Name</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="google-input" data-key="address" class="google-input" type="text" placeholder="" required=""
+                  name="address" aria-label="Address" />
+                <div id="google-label" class="google-label" aria-hidden="true">Address</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="google-input" data-key="zip_code" class="google-input" type="text" placeholder="" required=""
+                  name="zipCode" aria-label="Zip code" />
+                <div id="google-label" class="google-label" aria-hidden="true">Zip Code</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="google-input" data-key="contact_number" class="google-input" type="text" placeholder=""
+                  required="" name="contactNumber" aria-label="Contact number" />
+                <div id="google-label" class="google-label" aria-hidden="true">Contact Number</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="google-input" data-key="gender" class="google-input" type="text" placeholder="" required=""
+                  name="gender" aria-label="Gender" />
+                <div id="google-label" class="google-label" aria-hidden="true">Gender</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="birthdate" data-key="birthdate" class="google-input" type="text" placeholder="" required=""
+                  name="date" aria-label="Date" />
+                <div id="google-label" class="google-label" aria-hidden="true">Date</div>
+                <span class="new-record__date-icon-wrapper input-group-append">
+                  <span class="input-group-text bg-white">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </span>
+              </div>
+
+            </div>
+            <div class="new-record__wrapper3">
+              <h4 class="new-record__title">Vaccine Information</h3>
+
+                <!-- <p class="new-record__headers">Dosage Sequence</p> -->
+                <!-- <p class="new-record__headers">Vaccine Brand</p> -->
+                <!-- <p class="new-record__headers">Name of vaccinator</p> -->
+                <!-- <p class="new-record__headers">Date</p> -->
+
+                <div id="google-container" class="google-container">
+                  <input class="dosageSequence google-input" data-key="dosage_sequence" type="text" placeholder=""
+                    required="" name="dosageSequence" value="First Dose" aria-label="Dosage Sequence" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Dosage Sequence</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="vaccineBrand google-input" data-key="vaccine_brand" type="text" placeholder=""
+                    required="" name="vaccineBrand" aria-label="Vaccine Brand" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Vaccine Brand</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="vaccinator google-input" data-key="vaccinator" type="text" placeholder="" required=""
+                    name="vaccinator" aria-label="Vaccinator" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Vaccinator</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input id="datepicker2" class="dateAdministered google-input" data-key="date_administered" type="text"
+                    placeholder="" required="" name="dateAdministered" aria-label="Date administered" />
+                  <div id="google-label" class="google-label" aria-hidden="true">administered</div>
+                  <span class="new-record__date-icon-wrapper input-group-append">
+                    <span class="input-group-text bg-white">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="dosageSequence google-input" data-key="dosage_sequence" type="text" placeholder=""
+                    required="" name="dosageSequence" value="First Dose" aria-label="Dosage Sequence" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Dosage Sequence</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="vaccineBrand google-input" data-key="vaccine_brand" type="text" placeholder=""
+                    required="" name="vaccineBrand" aria-label="Vaccine Brand" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Vaccine Brand</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="vaccinator google-input" data-key="vaccinator" type="text" placeholder="" required=""
+                    name="vaccinator" aria-label="Vaccinator" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Vaccinator</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input id="datepicker3" class="dateAdministered google-input" data-key="date_administered" type="text"
+                    placeholder="" required="" name="dateAdministered" aria-label="Date administered" />
+                  <div id="google-label" class="google-label" aria-hidden="true">administered</div>
+                  <span class="new-record__date-icon-wrapper input-group-append">
+                    <span class="input-group-text bg-white">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="dosageSequence google-input" data-key="dosage_sequence" type="text" placeholder=""
+                    required="" name="dosageSequence" value="First Dose" aria-label="Dosage Sequence" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Dosage Sequence</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="vaccineBrand google-input" data-key="vaccine_brand" type="text" placeholder=""
+                    required="" name="vaccineBrand" aria-label="Vaccine Brand" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Vaccine Brand</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="vaccinator google-input" data-key="vaccinator" type="text" placeholder="" required=""
+                    name="vaccinator" aria-label="Vaccinator" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Vaccinator</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input id="datepicker4" class="dateAdministered google-input" data-key="date_administered" type="text"
+                    placeholder="" required="" name="dateAdministered" aria-label="Date administered" />
+                  <div id="google-label" class="google-label" aria-hidden="true">administered</div>
+                  <span class="new-record__date-icon-wrapper input-group-append">
+                    <span class="input-group-text bg-white">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="dosageSequence google-input" data-key="dosage_sequence" type="text" placeholder=""
+                    required="" name="dosageSequence" value="First Dose" aria-label="Dosage Sequence" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Dosage Sequence</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="vaccineBrand google-input" data-key="vaccine_brand" type="text" placeholder=""
+                    required="" name="vaccineBrand" aria-label="Vaccine Brand" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Vaccine Brand</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input class="vaccinator google-input" data-key="vaccinator" type="text" placeholder="" required=""
+                    name="vaccinator" aria-label="Vaccinator" />
+                  <div id="google-label" class="google-label" aria-hidden="true">Vaccinator</div>
+                </div>
+
+                <div id="google-container" class="google-container">
+                  <input id="datepicker5" class="dateAdministered google-input" data-key="date_administered" type="text"
+                    placeholder="" required="" name="dateAdministered" aria-label="Date administered" />
+                  <div id="google-label" class="google-label" aria-hidden="true">administered</div>
+                  <span class="new-record__date-icon-wrapper input-group-append">
+                    <span class="input-group-text bg-white">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+
+                <label class="new-record__dosage-sequence-label" for="dosageSequence2">Dosage Sequence</label>
+                <input type="text" class="new-record__dosage-sequence-input" id="dosageSequence2" value="First Dose"
+                  required="" />
+
+                <label class="new-record__vaccine-brand-label" for="vaccineBrand2">Vaccine Brand</label>
+                <input type="text" class="new-record__vaccine-brand-input" id="vaccineBrand2" placeholder=""
+                  required="" />
+
+                <label class="new-record__vaccinator-label" for="vaccinator2">Vaccinator</label>
+                <input type="text" class="new-record__vaccinator-input" id="vaccinator2" placeholder="" required="" />
+
+                <label class="new-record__date-label" for="dateAdministered2">date administered</label>
+                <div class="new-record__date">
+                  <div class="new-record__date-wrapper input-group date" id="datepicker2">
+                    <input class="new-record__date-input" type="text" id="dateAdministered2" required="" />
+                    <span class="new-record__date-icon-wrapper input-group-append">
+                      <span class="input-group-text bg-white">
+                        <i class="fa fa-calendar"></i>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+
+            </div>
+            <input type="submit" class="btn btn-primary" />
+          </form>
+
+          <input type="text" id="datepicker" class="datepicker" placeholder="Select a date" />
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'vaccination_records/index.js' %}"></script>
+<script type="text/javascript">
+  const datepicker = document.getElementById("datepicker");
+  const picker = new Pikaday({
+    field: datepicker,
+    format: 'YYYY-MM-DD',
+  });
+</script>
+{% endblock %}

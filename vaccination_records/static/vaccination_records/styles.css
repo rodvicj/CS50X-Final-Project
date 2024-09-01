@@ -31,6 +31,7 @@ records-view
 .grid-container {
   display: grid;
   grid-template-columns: minmax(1em, 1fr) minmax(0px, 768px) minmax(1em, 1fr);
+  margin-bottom: 3em;
 }
 
 .vaccine-records__container>* {
@@ -38,20 +39,30 @@ records-view
   text-transform: capitalize;
 }
 
+.cont {
+  background-color: #454d55;
+  padding: 1px;
+}
+
 .vaccine-records__wrapper {
   display: grid;
-  grid-template-columns: minmax(0px, 1fr) minmax(min-content, max-content) minmax(0px,
-      1fr) minmax(0px, 1fr);
+  grid-template-columns: repeat(4, minmax(0px, 1fr));
   grid-template-areas:
-    "title title title title"
+    /* "title title title title" */
     "header1 header2 header3 header4";
-  row-gap: 1em;
-  align-items: center;
-  text-align: center;
+  gap: 1px;
+  /* align-items: center; */
+  /* text-align: center; */
 }
 
 .vaccine-records__wrapper>* {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
+  background-color: #fff;
+  padding: 0.25em;
+  text-align: center;
 }
 
 /* .vaccine-records__headers { */
@@ -83,12 +94,14 @@ record-view
 
 .grid__container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: minmax(0px, 480px);
   grid-gap: 1em;
   margin: 0 auto;
+  margin-bottom: 3em;
 }
 
 .grid__header {
+  margin: 0;
   text-align: center;
   grid-column: 1 / -1;
   /* border: 1px solid #000; */
@@ -129,16 +142,27 @@ record-view
   grid-template-areas:
     "title title title title"
     "header1 header2 header3 header4";
-  align-items: center;
-  text-align: center;
+  gap: 1px;
+
+  &>* {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background-color: #fff;
+    padding: 0.25em;
+    text-align: center;
+  }
 }
 
 .vaccine-info__title {
-  grid-area: title;
-  grid-column: 1 / -1;
-  justify-self: center;
   margin: 0;
   padding: 0.5em;
+  /* grid-area: title; */
+  grid-column: 1 / -1;
+  /* justify-self: center; */
+  text-align: center;
+  width: 100%;
 }
 
 .vaccine-info__header-1 {
@@ -159,7 +183,6 @@ record-view
 
 .vaccine-info__header-wrapper,
 .vaccine-records__headers {
-  /* text-transform: capitalize; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,9 +198,92 @@ record-view
   font-weight: 700;
 }
 
+.vaccine-info__values {
+  margin: 0;
+}
+
 /* ====================
 record-view end
 ==================== */
+
+/* ====================
+new-record star
+==================== */
+
+.new-record__container>* {
+  grid-column: 2 / -2;
+}
+
+/* .new-record__form { */
+
+/* } */
+
+.new-record__date-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-right: 0.25em;
+}
+
+.google-container {
+  display: flex;
+  border: 1px solid black;
+  margin: 1em;
+}
+
+.google-container--active {
+  border: 1px solid blue;
+}
+
+.google-input,
+#firstName,
+#lastName,
+#address,
+#zipCode,
+#birthdate,
+#contactNumber {
+  color: #1f1f1f;
+  font-size: 16px;
+  height: 28px;
+  margin: 2px;
+  padding: 0.5em;
+  text-align: left;
+  z-index: 1;
+  width: 100%;
+  border: none;
+  outline: none;
+
+  &:focus-visible {
+    border: none;
+    outline: none;
+  }
+}
+
+.google-input:focus-visible {
+  border: none;
+  outline: none;
+}
+
+.google-label {
+  background-color: #fff;
+  padding: 0 0.25em;
+  position: absolute;
+  color: #444746;
+  z-index: 2;
+  /* transform: scale(0.75) translateY(-39px); */
+}
+
+.google-label--active {
+  color: blue;
+}
+
+.google-label--inactive {
+  color: #444746;
+}
+
+.google-label--transform {
+  transform: scale(0.75) translateY(-19px);
+}
 
 @media (min-width: 480px) {
   .vaccine-records__wrapper {
@@ -185,12 +291,14 @@ record-view end
   }
 
   .grid__container {
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, minmax(0px, 480px));
   }
 }
 
 @media (min-width: 720px) {
   .grid__container {
-    grid-template-columns: repeat(3, minmax(270px, 1fr));
+    grid-template-columns: repeat(3, minmax(0px, 480px));
   }
 }
+
+/* transform: scale(0.75) translateY(-39px); */
