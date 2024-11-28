@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid-Styled Table</title>
+  <style>
+    .table-container {
+      display: grid;
+      /* Define grid columns (adjust as needed) */
+      grid-template-columns: repeat(4, 1fr);
+      /* 4 equal columns */
+      /* Customize row gap and column gap */
+      grid-row-gap: 5px;
+      grid-column-gap: 10px;
+      /* Add padding and margin for spacing */
+      padding: 10px;
+    }
+
+    .table-header {
+      font-weight: bold;
+      /* Style header cells (e.g., background color) */
+      background-color: #f0f0f0;
+    }
+
+    .table-row {
+      /* Style table rows (e.g., alternating background) */
+      background-color: #f9f9f9;
+    }
+
+    .table-row:nth-child(even) {
+      background-color: #e9e9e9;
+    }
+
+    .table-cell {
+      /* Style all table cells (padding, border, etc.) */
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="table-container">
+    <div class="table-header table-cell">Header 1</div>
+    <div class="table-header table-cell">Header 2</div>
+    <div class="table-header table-cell">Header 3</div>
+    <div class="table-header table-cell">Header 4</div>
+
+    <div class="table-row">
+      <div class="table-cell">Row 1, Cell 1</div>
+      <div class="table-cell">Row 1, Cell 2</div>
+      <div class="table-cell">Row 1, Cell 3</div>
+      <div class="table-cell">Row 1, Cell 4</div>
+    </div>
+
+    <div class="table-row">
+      <div class="table-cell">Row 2, Cell 1</div>
+      <div class="table-cell">Row 2, Cell 2</div>
+      <div class="table-cell">Row 2, Cell 3</div>
+      <div class="table-cell">Row 2, Cell 4</div>
+    </div>
+  </div>
+</body>
+
+</html>

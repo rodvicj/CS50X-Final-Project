@@ -64,18 +64,13 @@
       }
     },
     removeClass = function (el, cn) {
-      el.className = trim(
-        (" " + el.className + " ").replace(" " + cn + " ", " "),
-      );
+      el.className = trim((" " + el.className + " ").replace(" " + cn + " ", " "));
     },
     isArray = function (obj) {
       return /Array/.test(Object.prototype.toString.call(obj));
     },
     isDate = function (obj) {
-      return (
-        /Date/.test(Object.prototype.toString.call(obj)) &&
-        !isNaN(obj.getTime())
-      );
+      return /Date/.test(Object.prototype.toString.call(obj)) && !isNaN(obj.getTime());
     },
     isWeekend = function (date) {
       var day = date.getDay();
@@ -86,20 +81,7 @@
       return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
     },
     getDaysInMonth = function (year, month) {
-      return [
-        31,
-        isLeapYear(year) ? 29 : 28,
-        31,
-        30,
-        31,
-        30,
-        31,
-        31,
-        30,
-        31,
-        30,
-        31,
-      ][month];
+      return [31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
     },
     setToStartOfDay = function (date) {
       if (isDate(date)) date.setHours(0, 0, 0, 0);
@@ -112,12 +94,7 @@
       var prop, hasProp;
       for (prop in from) {
         hasProp = to[prop] !== undefined;
-        if (
-          hasProp &&
-          typeof from[prop] === "object" &&
-          from[prop] !== null &&
-          from[prop].nodeName === undefined
-        ) {
+        if (hasProp && typeof from[prop] === "object" && from[prop] !== null && from[prop].nodeName === undefined) {
           if (isDate(from[prop])) {
             if (overwrite) {
               to[prop] = new Date(from[prop].getTime());
@@ -274,15 +251,7 @@
           "November",
           "December",
         ],
-        weekdays: [
-          "Sunday",
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
+        weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
       },
 
@@ -389,20 +358,13 @@
       var jan4th = new Date(date.getFullYear(), 0, dayInFirstWeek),
         msPerDay = 24 * 60 * 60 * 1000,
         daysBetween = (date.getTime() - jan4th.getTime()) / msPerDay,
-        weekNum =
-          1 +
-          Math.round(
-            (daysBetween - dayShift + prevWeekDay(jan4th.getDay())) /
-              daysPerWeek,
-          );
+        weekNum = 1 + Math.round((daysBetween - dayShift + prevWeekDay(jan4th.getDay())) / daysPerWeek);
 
       return weekNum;
     },
     renderWeek = function (d, m, y, firstWeekOfYearMinDays) {
       var date = new Date(y, m, d),
-        week = hasMoment
-          ? moment(date).isoWeek()
-          : isoWeek(date, firstWeekOfYearMinDays);
+        week = hasMoment ? moment(date).isoWeek() : isoWeek(date, firstWeekOfYearMinDays);
 
       return '<td class="pika-week">' + week + "</td>";
     },
@@ -434,11 +396,7 @@
             "</abbr></th>",
         );
       }
-      return (
-        "<thead><tr>" +
-        (opts.isRTL ? arr.reverse() : arr).join("") +
-        "</tr></thead>"
-      );
+      return "<thead><tr>" + (opts.isRTL ? arr.reverse() : arr).join("") + "</tr></thead>";
     },
     renderTitle = function (instance, c, year, month, refYear, randId) {
       var i,
@@ -447,10 +405,7 @@
         opts = instance._o,
         isMinYear = year === opts.minYear,
         isMaxYear = year === opts.maxYear,
-        html =
-          '<div id="' +
-          randId +
-          '" class="pika-title" role="heading" aria-live="polite">',
+        html = '<div id="' + randId + '" class="pika-title" role="heading" aria-live="polite">',
         monthHtml,
         yearHtml,
         prev = true,
@@ -462,10 +417,7 @@
             (year === refYear ? i - c : 12 + i - c) +
             '"' +
             (i === month ? ' selected="selected"' : "") +
-            ((isMinYear && i < opts.minMonth) ||
-            (isMaxYear && i > opts.maxMonth)
-              ? ' disabled="disabled"'
-              : "") +
+            ((isMinYear && i < opts.minMonth) || (isMaxYear && i > opts.maxMonth) ? ' disabled="disabled"' : "") +
             ">" +
             opts.i18n.months[i] +
             "</option>",
@@ -489,15 +441,7 @@
 
       for (arr = []; i < j && i <= opts.maxYear; i++) {
         if (i >= opts.minYear) {
-          arr.push(
-            '<option value="' +
-              i +
-              '"' +
-              (i === year ? ' selected="selected"' : "") +
-              ">" +
-              i +
-              "</option>",
-          );
+          arr.push('<option value="' + i + '"' + (i === year ? ' selected="selected"' : "") + ">" + i + "</option>");
         }
       }
       yearHtml =
@@ -727,10 +671,7 @@
       };
 
       self.el = document.createElement("div");
-      self.el.className =
-        "pika-single" +
-        (opts.isRTL ? " is-rtl" : "") +
-        (opts.theme ? " " + opts.theme : "");
+      self.el.className = "pika-single" + (opts.isRTL ? " is-rtl" : "") + (opts.theme ? " " + opts.theme : "");
 
       addEvent(self.el, "mousedown", self._onMouseDown, true);
       addEvent(self.el, "touchend", self._onMouseDown, true);
@@ -797,20 +738,15 @@
 
       opts.field = opts.field && opts.field.nodeName ? opts.field : null;
 
-      opts.theme =
-        typeof opts.theme === "string" && opts.theme ? opts.theme : null;
+      opts.theme = typeof opts.theme === "string" && opts.theme ? opts.theme : null;
 
-      opts.bound = !!(opts.bound !== undefined
-        ? opts.field && opts.bound
-        : opts.field);
+      opts.bound = !!(opts.bound !== undefined ? opts.field && opts.bound : opts.field);
 
-      opts.trigger =
-        opts.trigger && opts.trigger.nodeName ? opts.trigger : opts.field;
+      opts.trigger = opts.trigger && opts.trigger.nodeName ? opts.trigger : opts.field;
 
       opts.disableWeekends = !!opts.disableWeekends;
 
-      opts.disableDayFn =
-        typeof opts.disableDayFn === "function" ? opts.disableDayFn : null;
+      opts.disableDayFn = typeof opts.disableDayFn === "function" ? opts.disableDayFn : null;
 
       var nom = parseInt(opts.numberOfMonths, 10) || 1;
       opts.numberOfMonths = nom > 4 ? 4 : nom;
@@ -836,8 +772,7 @@
         opts.yearRange[0] = parseInt(opts.yearRange[0], 10) || fallback;
         opts.yearRange[1] = parseInt(opts.yearRange[1], 10) || fallback;
       } else {
-        opts.yearRange =
-          Math.abs(parseInt(opts.yearRange, 10)) || defaults.yearRange;
+        opts.yearRange = Math.abs(parseInt(opts.yearRange, 10)) || defaults.yearRange;
         if (opts.yearRange > 100) {
           opts.yearRange = 100;
         }
@@ -895,7 +830,7 @@
 
         if (this._o.field) {
           this._o.field.value = "";
-          fireEvent(this._o.field, "change", { firedBy: this });
+          fireEvent(this._o.field, "change", {firedBy: this});
         }
 
         return this.draw();
@@ -922,7 +857,7 @@
 
       if (this._o.field) {
         this._o.field.value = this.toString();
-        fireEvent(this._o.field, "change", { firedBy: this });
+        fireEvent(this._o.field, "change", {firedBy: this});
       }
       if (!preventOnSelect && typeof this._o.onSelect === "function") {
         this._o.onSelect.call(this, this.getDate());
@@ -947,11 +882,7 @@
       }
 
       if (this.calendars) {
-        var firstVisibleDate = new Date(
-            this.calendars[0].year,
-            this.calendars[0].month,
-            1,
-          ),
+        var firstVisibleDate = new Date(this.calendars[0].year, this.calendars[0].month, 1),
           lastVisibleDate = new Date(
             this.calendars[this.calendars.length - 1].year,
             this.calendars[this.calendars.length - 1].month,
@@ -961,9 +892,7 @@
         // get the end of the month
         lastVisibleDate.setMonth(lastVisibleDate.getMonth() + 1);
         lastVisibleDate.setDate(lastVisibleDate.getDate() - 1);
-        newCalendar =
-          visibleDate < firstVisibleDate.getTime() ||
-          lastVisibleDate.getTime() < visibleDate;
+        newCalendar = visibleDate < firstVisibleDate.getTime() || lastVisibleDate.getTime() < visibleDate;
       }
 
       if (newCalendar) {
@@ -1124,14 +1053,7 @@
             .substr(0, 2);
         html +=
           '<div class="pika-lendar">' +
-          renderTitle(
-            this,
-            c,
-            this.calendars[c].year,
-            this.calendars[c].month,
-            this.calendars[0].year,
-            randId,
-          ) +
+          renderTitle(this, c, this.calendars[c].year, this.calendars[c].month, this.calendars[0].year, randId) +
           this.render(this.calendars[c].year, this.calendars[c].month, randId) +
           "</div>";
       }
@@ -1179,12 +1101,8 @@
       width = this.el.offsetWidth;
       height = this.el.offsetHeight;
       viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-      viewportHeight =
-        window.innerHeight || document.documentElement.clientHeight;
-      scrollTop =
-        window.pageYOffset ||
-        document.body.scrollTop ||
-        document.documentElement.scrollTop;
+      viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      scrollTop = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
       leftAligned = true;
       bottomAligned = true;
 
@@ -1204,16 +1122,14 @@
       // default position is bottom & left
       if (
         (this._o.reposition && left + width > viewportWidth) ||
-        (this._o.position.indexOf("right") > -1 &&
-          left - width + field.offsetWidth > 0)
+        (this._o.position.indexOf("right") > -1 && left - width + field.offsetWidth > 0)
       ) {
         left = left - width + field.offsetWidth;
         leftAligned = false;
       }
       if (
         (this._o.reposition && top + height > viewportHeight + scrollTop) ||
-        (this._o.position.indexOf("top") > -1 &&
-          top - height - field.offsetHeight > 0)
+        (this._o.position.indexOf("top") > -1 && top - height - field.offsetHeight > 0)
       ) {
         top = top - height - field.offsetHeight;
         bottomAligned = false;
@@ -1257,10 +1173,7 @@
         nextMonth = month === 11 ? 0 : month + 1,
         yearOfPreviousMonth = month === 0 ? year - 1 : year,
         yearOfNextMonth = month === 11 ? year + 1 : year,
-        daysInPreviousMonth = getDaysInMonth(
-          yearOfPreviousMonth,
-          previousMonth,
-        );
+        daysInPreviousMonth = getDaysInMonth(yearOfPreviousMonth, previousMonth);
       var cells = days + before,
         after = cells;
       while (after > 7) {
@@ -1272,19 +1185,14 @@
         var day = new Date(year, month, 1 + (i - before)),
           isSelected = isDate(this._d) ? compareDates(day, this._d) : false,
           isToday = compareDates(day, now),
-          hasEvent =
-            opts.events.indexOf(day.toDateString()) !== -1 ? true : false,
+          hasEvent = opts.events.indexOf(day.toDateString()) !== -1 ? true : false,
           isEmpty = i < before || i >= days + before,
           dayNumber = 1 + (i - before),
           monthNumber = month,
           yearNumber = year,
           isStartRange = opts.startRange && compareDates(opts.startRange, day),
           isEndRange = opts.endRange && compareDates(opts.endRange, day),
-          isInRange =
-            opts.startRange &&
-            opts.endRange &&
-            opts.startRange < day &&
-            day < opts.endRange,
+          isInRange = opts.startRange && opts.endRange && opts.startRange < day && day < opts.endRange,
           isDisabled =
             (opts.minDate && day < opts.minDate) ||
             (opts.maxDate && day > opts.maxDate) ||
@@ -1316,8 +1224,7 @@
           isEndRange: isEndRange,
           isInRange: isInRange,
           showDaysInNextAndPreviousMonths: opts.showDaysInNextAndPreviousMonths,
-          enableSelectionDaysInNextAndPreviousMonths:
-            opts.enableSelectionDaysInNextAndPreviousMonths,
+          enableSelectionDaysInNextAndPreviousMonths: opts.enableSelectionDaysInNextAndPreviousMonths,
         };
 
         if (opts.pickWholeWeek && isSelected) {
@@ -1328,13 +1235,9 @@
 
         if (++r === 7) {
           if (opts.showWeekNumber) {
-            row.unshift(
-              renderWeek(i - before, month, year, opts.firstWeekOfYearMinDays),
-            );
+            row.unshift(renderWeek(i - before, month, year, opts.firstWeekOfYearMinDays));
           }
-          data.push(
-            renderRow(row, opts.isRTL, opts.pickWholeWeek, isWeekSelected),
-          );
+          data.push(renderRow(row, opts.isRTL, opts.pickWholeWeek, isWeekSelected));
           row = [];
           r = 0;
           isWeekSelected = false;

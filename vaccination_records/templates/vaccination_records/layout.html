@@ -2,24 +2,27 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <title>
       {% block title %}Vaccination Records{% endblock %}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css" />
-
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{% static 'vaccination_records/styles.css' %}" />
+
+    <script src="{% static 'vaccination_records/fontawesome/fontawesome.js' %}"></script>
+    <script src="{% static 'vaccination_records/fontawesome/brands.js' %}"></script>
+    <script src="{% static 'vaccination_records/fontawesome/regular.js' %}"></script>
+    <script src="{% static 'vaccination_records/fontawesome/solid.js' %}"></script>
+    <script src="{% static 'vaccination_records/fontawesome/v4-shims.js' %}"></script>
   </head>
 
   <body>
     {% block body %}{% endblock %}
   </body>
 
-    {% block script %}{% endblock %}
+  {% block script %}{% endblock %}
 </html>

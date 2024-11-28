@@ -55,6 +55,28 @@ def add_record(request):
 
     try:
         data = json.loads(request.body)
+
+        # Validate required fields
+        required_fields = {
+            "first_name": "First Name",
+            "last_name": "Last Name",
+            "address": "Address",
+            "contact_number": "Contact Number",
+            "gender": "Gender",
+            "birthdate": "Birthday",
+        }
+
+        # missing_fields = [field for field in required_fields if not data.get(field)]
+        missing_fields = [
+            required_fields[key] for key in required_fields if not data.get(key)
+        ]
+
+        if missing_fields:
+            return JsonResponse(
+                {"error": f"Missing required fields: {', '.join(missing_fields)}"},
+                status=400,
+            )
+
         first_name = data.get("first_name", "")
         last_name = data.get("last_name", "")
         address = data.get("address", "")
@@ -78,7 +100,12 @@ def add_record(request):
 
         for info in vaccine_infos:
             # if ((info["dosage_sequence"] != "") and (info["date_administered"] != "") and (info["vaccine_brand"] != "") and (info["vaccinator"]) != ""):
-            if ((info["dosage_sequence"]) and (info["date_administered"]) and (info["vaccine_brand"]) and (info["vaccinator"])):
+            if (
+                (info["dosage_sequence"])
+                and (info["date_administered"])
+                and (info["vaccine_brand"])
+                and (info["vaccinator"])
+            ):
                 new_vaccine_info = Vaccine_information.objects.create(
                     dosage_sequence=info["dosage_sequence"],
                     date_administered=info["date_administered"],

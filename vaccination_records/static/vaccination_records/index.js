@@ -4,7 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#records").blur();
   });
 
-  // handle submit form button
+  // document.querySelector("#submitButton").addEventListener("click", (event) => {
+  //   addRecord();
+  //   event.preventDefault();
+  // });
+  // handle submit form
   document.querySelector("#recordsForm").onsubmit = () => {
     addRecord();
     return false;
@@ -20,61 +24,23 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#about").blur();
   });
 
+  document.querySelector(".add-btn__wrapper").addEventListener("click", () => {
+    console.log("add-btn__wrapper was called");
+    addVacInfo();
+    updateInputs();
+    datePicker();
+  });
+
   get_records();
-
-  const inputs = document.querySelectorAll(".google-input");
-  // document.querySelectorAll(".google-input").addEventListener("focus", (event) => {
-  console.log("inputs", inputs);
-
-  // inputs.map((input) => {
-  inputs.forEach((input) => {
-    input.addEventListener("focus", (event) => {
-      // const googleInput = document.querySelector("#google-input");
-      console.log("event", event.target.classList[0]);
-
-      // event.target.parentNode.querySelector("#google-label").classList.add("google-label--transform", "google-label--active");
-      event.target.parentNode.querySelector("#google-label").className =
-        "google-label google-label--transform google-label--active";
-      event.target.parentNode.classList.add("google-container--active");
-      console.log("google-label--transform added...");
-    });
-  });
-
-  inputs.forEach((input) => {
-    input.addEventListener("blur", (event) => {
-      const googleInput = document.querySelector("#google-input");
-
-      if (
-        event.target.parentNode.querySelector("#google-input")?.value === "" ||
-        event.target.parentNode.querySelector("#birthdate")?.value === ""
-      ) {
-        event.target.parentNode.querySelector("#google-label").className =
-          "google-label";
-        console.log("google-label--transform removed...");
-      }
-
-      event.target.parentNode
-        .querySelector("#google-label")
-        .classList.add("google-label--inactive");
-      event.target.parentNode.className = "google-container";
-
-      // if (googleInput.className.includes("active")) {
-      //   console.log("Div is active");
-      // } else {
-      //   console.log("Div is not active");
-      // }
-    });
-  });
 });
 
 function aboutPage() {
   document.querySelector("#create-view").style.display = "none";
-  document.querySelector("#record-view").style.display = "none";
-  document.querySelector("#records-view").style.display = "none";
+  document.querySelector("#vaccine-record").style.display = "none";
+  document.querySelector("#vaccine-records").style.display = "none";
   document.querySelector("#about-view").style.display = "block";
 
   document.querySelector("#about-view").innerHTML = "";
-
   const container = document.createElement("div");
   container.className = "container";
   let about = document.createElement("h3");
@@ -117,19 +83,19 @@ function aboutPage() {
 }
 
 async function addRecord() {
-  const dosages = document.querySelectorAll(".dosageSequence");
-  const brands = document.querySelectorAll(".vaccineBrand");
-  const vaccinators = document.querySelectorAll(".vaccinator");
-  const dates = document.querySelectorAll(".dateAdministered");
+  // const dosages = document.querySelectorAll(".dosageSequence");
+  // const brands = document.querySelectorAll(".vaccineBrand");
+  // const vaccinators = document.querySelectorAll(".vaccinator");
+  // const dates = document.querySelectorAll(".dateAdministered");
 
-  const vaccineInfoss = {};
+  // const vaccineInfoss = {};
 
-  vaccineInfoss["dosage_sequence"] = dosages;
-  vaccineInfoss["vaccine_brand"] = brands;
-  vaccineInfoss["vaccinator"] = vaccinators;
-  vaccineInfoss["date_administered"] = dates;
+  // vaccineInfoss["dosage_sequence"] = dosages;
+  // vaccineInfoss["vaccine_brand"] = brands;
+  // vaccineInfoss["vaccinator"] = vaccinators;
+  // vaccineInfoss["date_administered"] = dates;
 
-  console.log("vaccineInfossssss", vaccineInfoss);
+  // console.log("vaccineInfossssss", vaccineInfoss);
 
   // personal information
   const inputs = document.querySelectorAll(".google-input");
@@ -151,25 +117,15 @@ async function addRecord() {
   // const contactNumber = document.querySelector("#contactNumber").value;
   // let gender = "";
 
-  // let ele = document.getElementsByName("gender");
-
-  // for (i = 0; i < ele.length; i++) {
-  //   if (ele[i].checked) gender = ele[i].value;
-  // }
+  // TODO: change to dynamic array length and take advantage of using class with querySelectorAll
+  const dosageSequenceList = document.querySelectorAll(".dosageSequence");
+  const vaccineBrandList = document.querySelectorAll(".vaccineBrand");
+  const vaccinatorList = document.querySelectorAll(".vaccinator");
+  const dateAdministeredList = document.querySelectorAll(".dateAdministered");
 
   const vaccineInfos = [];
 
-  let dosageSequence = "dosageSequence0";
-  let vaccineBrand = "vaccineBrand0";
-  let vaccinator = "vaccinator0";
-  let dateAdministered = "dateAdministered0";
-
-  // TODO: change to dynamic array length
-  for (let i = 0; i < 1; i++) {
-    dosageSequence = dosageSequence.slice(0, -1) + `${i + 1}`;
-    vaccineBrand = vaccineBrand.slice(0, -1) + `${i + 1}`;
-    vaccinator = vaccinator.slice(0, -1) + `${i + 1}`;
-    dateAdministered = dateAdministered.slice(0, -1) + `${i + 1}`;
+  for (let i = 0; i < dateAdministeredList.length; i++) {
     let dict = {};
 
     // TODO: use
@@ -179,16 +135,17 @@ async function addRecord() {
     // const dosages = document.querySelectorAll(".dateAdministered");
     // then loop using dosages.length then put inside dict{} using dict["dosage_sequence"] = dosages[i]; etc...
 
-    dict["dosage_sequence"] = document.querySelector(
-      `#${dosageSequence}`,
-    ).value;
-    dict["vaccine_brand"] = document.querySelector(`#${vaccineBrand}`).value;
-    dict["vaccinator"] = document.querySelector(`#${vaccinator}`).value;
-    dict["date_administered"] = document.querySelector(
-      `#${dateAdministered}`,
-    ).value;
+    dict["dosage_sequence"] = dosageSequenceList[i].value;
+    dict["vaccine_brand"] = vaccineBrandList[i].value;
+    dict["vaccinator"] = vaccinatorList[i].value;
+    dict["date_administered"] = dateAdministeredList[i].value;
+
     vaccineInfos.push(dict);
+
+    console.log("dict", dict);
+    console.log("vaccineInfos", vaccineInfos);
   }
+
   const vacInfos = {};
   vacInfos["vaccine_infos"] = JSON.stringify(vaccineInfos);
   console.log("vacInfos", vacInfos);
@@ -204,9 +161,9 @@ async function addRecord() {
         // birthdate: `${birthdate}`,
         // contact_number: `${contactNumber}`,
         // gender: `${gender}`,
+        // vaccine_infos: `${vacInfos}`,
         ...keys,
         ...vacInfos,
-        // vaccine_infos: `${vacInfos}`,
       }),
     });
     const json = await response.json();
@@ -218,16 +175,20 @@ async function addRecord() {
   } catch (error) {
     console.log("error", error);
   }
+
+  console.log("vacc-input", document.querySelectorAll(".vacc-input"));
+  console.log("dosageSequence class", document.querySelectorAll(".dosageSequence"));
 }
 
+// TODO: properly format dates to example: Sep. 03, 2024
 async function get_records() {
   document.querySelector("#create-view").style.display = "none";
-  document.querySelector("#record-view").style.display = "none";
+  document.querySelector("#vaccine-record").style.display = "none";
   document.querySelector("#about-view").style.display = "none";
-  document.querySelector("#records-view").style.display = "block";
-  document.querySelector("#records-view").innerHTML = "";
+  document.querySelector("#vaccine-records").style.display = "block";
+  document.querySelector("#vaccine-records").innerHTML = "";
 
-  const recordsView = document.querySelector("#records-view");
+  const recordsView = document.querySelector("#vaccine-records");
   recordsView.style.display = "block";
 
   const main_container = document.createElement("div");
@@ -241,29 +202,19 @@ async function get_records() {
 
   if (json.length === 0) {
     const notice = document.createElement("p");
-    notice.innerHTML =
-      "No records found, go to 'Create new record' to submit vaccination information";
+    notice.innerHTML = "No records found, go to 'Create new record' to submit vaccination information";
     container.append(notice);
     recordsView.append(container);
   } else {
     let vaccineRecordsContainer = document.createElement("div");
-
-    // vaccineRecordsContainer.setAttribute(
-    //   "class",
-    //   "grid-container vaccine-records__container",
-    // );
-
-    let cont = document.createElement("div");
-    cont.className = "cont";
-    vaccineRecordsContainer.className =
-      "grid-container vaccine-records__container";
+    vaccineRecordsContainer.className = "vaccine-records__wrapper";
 
     let vaccineRecordsWrapper = document.createElement("div");
-    vaccineRecordsWrapper.className = "vaccine-records__wrapper";
+    vaccineRecordsWrapper.className = "vaccine-records__container";
 
     let vaccineRecordsTitle = document.createElement("h2");
+    vaccineRecordsTitle.className = "vaccine-records__title";
     vaccineRecordsTitle.innerHTML = "Vaccination Records";
-    vaccineRecordsTitle.className = "vaccine-info__title";
 
     vaccineRecordsContainer.append(vaccineRecordsTitle);
 
@@ -281,23 +232,23 @@ async function get_records() {
 
     for (let i = 0; i < headersName.length; i++) {
       let headerWrapper = document.createElement("div");
-      headerWrapper.className = "vaccine-records__headers";
-      headersName[i].className = "vaccine-records__header";
+      headerWrapper.className = "vaccine-records__header";
+      // headersName[i].className = "vaccine-records__header";
       headerWrapper.append(headersName[i]);
       vaccineRecordsWrapper.append(headerWrapper);
     }
 
     json.map((record) => {
-      console.log("record", record);
-
-      // let hr1 = document.createElement("hr");
-      // hr1.className = "grid__hr";
-
       let name = document.createElement("p");
+      name.className = "vaccine-records__name";
       let gender = document.createElement("p");
+      gender.className = "vaccine-records__gender";
       let latestVac = document.createElement("p");
+      latestVac.className = "vaccine-records__last-vaccine";
       let date = document.createElement("p");
+      date.className = "vaccine-records__date";
 
+      // console.log("name", record.name);
       name.innerHTML = `${record.name}`;
       gender.innerHTML = `${record.gender}`;
       date.innerHTML = `${record.date_created.slice(0, 11)}`;
@@ -307,11 +258,7 @@ async function get_records() {
           return;
         } else {
           let dateStr = new Date(`${info.date_administered}`);
-          latestVac.innerHTML = dateStr
-            .toDateString()
-            .split(" ")
-            .slice(1)
-            .join(" ");
+          latestVac.innerHTML = dateStr.toDateString().split(" ").slice(1).join(" ");
         }
       });
 
@@ -319,108 +266,77 @@ async function get_records() {
       vaccineRecordsWrapper.append(gender);
       vaccineRecordsWrapper.append(latestVac);
       vaccineRecordsWrapper.append(date);
-      // vaccineRecordsWrapper.append(hr1);
       name.addEventListener("click", () => get_record(record.id));
       gender.addEventListener("click", () => get_record(record.id));
       latestVac.addEventListener("click", () => get_record(record.id));
       date.addEventListener("click", () => get_record(record.id));
     });
 
-    // vaccineRecordsContainer.append(vaccineRecordsWrapper);
-    cont.append(vaccineRecordsWrapper);
-    vaccineRecordsContainer.append(cont);
+    vaccineRecordsContainer.append(vaccineRecordsWrapper);
+
     recordsView.append(vaccineRecordsContainer);
   }
 }
 
 async function get_record(recordID) {
   document.querySelector("#create-view").style.display = "none";
-  document.querySelector("#records-view").style.display = "none";
+  document.querySelector("#vaccine-records").style.display = "none";
   document.querySelector("#about-view").style.display = "none";
-  document.querySelector("#record-view").style.display = "block";
-  document.querySelector("#record-view").innerHTML = "";
+  document.querySelector("#vaccine-record").style.display = "block";
+  document.querySelector("#vaccine-record").innerHTML = "";
 
   const response = await fetch(`http://127.0.0.1:8000/get_record/${recordID}`);
   const record = await response.json();
 
-  keys = [
-    "name",
-    "address",
-    "contact_number",
-    "gender",
-    "birthday",
-    "date_created",
-  ];
-
-  names = [
-    "Name",
-    "Address",
-    "Contact number",
-    "Gender",
-    "Birthday",
-    "Date created",
-  ];
+  keys = ["name", "address", "contact_number", "gender", "birthday", "date_created"];
+  names = ["Name", "Address", "Contact number", "Gender", "Birthday", "Date created"];
 
   const container = document.createElement("div");
-  // container.className = "record__container";
-  container.setAttribute("class", "grid-container record__container");
+  container.className = "vaccine-record__container";
   let personalInfoHeader = document.createElement("h3");
   personalInfoHeader.innerHTML = "Personal Information";
-  personalInfoHeader.className = "grid__header";
-  // container.append(personalInfoHeader);
+  personalInfoHeader.className = "vaccine-record__personnal-title";
 
-  const grid__container = document.createElement("div");
-  grid__container.className = "grid__container";
-  grid__container.append(personalInfoHeader);
-  // let hr = document.createElement("hr");
+  const vaccineRecordContainer = document.createElement("div");
+  vaccineRecordContainer.className = "vaccine-record__personnal-container";
+  vaccineRecordContainer.append(personalInfoHeader);
 
   for (let i = 0; i < 6; i++) {
     let p1 = document.createElement("p");
     let p2 = document.createElement("p");
-    let grid__item = document.createElement("div");
-    // let hr = document.createElement("hr");
-    // hr.className = "grid__hr"
+    let personInfoWrapper = document.createElement("div");
 
-    p1.className = "grid__title";
-    p2.className = "grid__content";
-    grid__item.className = "grid__item";
+    p1.className = "vaccine-record__personnal-header";
+    p2.className = "vaccine-record__personnal-value";
+    personInfoWrapper.className = "vaccine-record__personnal-wrapper";
     p1.innerHTML = names[i];
-    grid__item.append(p1);
+    personInfoWrapper.append(p1);
 
     if (keys[i] === "birthday") {
       let dateStr = new Date(`${record[keys[i]]}`);
       p2.innerHTML = dateStr.toDateString().split(" ").slice(1).join(" ");
-      grid__item.appendChild(p2);
+      personInfoWrapper.appendChild(p2);
     } else if (keys[i] === "date_created") {
-      // p2.innerHTML = `${record.date_created.slice(0, 11)}`;
       p2.innerHTML = record[keys[i]].slice(0, 11);
-      grid__item.appendChild(p2);
+      personInfoWrapper.appendChild(p2);
     } else {
       p2.innerHTML = record[keys[i]];
-      grid__item.appendChild(p2);
+      personInfoWrapper.appendChild(p2);
     }
 
-    grid__container.appendChild(grid__item);
-
-    // add hr after every 3 grid__item
-    // if ((i + 1) % 3 === 0) {
-    //   grid__container.append(hr);
-    // }
+    vaccineRecordContainer.appendChild(personInfoWrapper);
   }
 
-  container.append(grid__container);
-  // let br1 = document.createElement("br");
-  // container.append(br1);
-  // container.append(hr);
+  container.append(vaccineRecordContainer);
   let vaccineInfoHeader = document.createElement("h3");
   vaccineInfoHeader.innerHTML = "Vaccine Information";
-  vaccineInfoHeader.className = "vaccine-info__title";
+  vaccineInfoHeader.className = "vaccine-record__info-title";
 
   let vaccineInfoContainer = document.createElement("div");
-  vaccineInfoContainer.className = "vaccine-info__container";
+  vaccineInfoContainer.className = "vaccine-record__info-container";
 
   let cont = document.createElement("div");
-  cont.className = "cont";
+  cont.className = "vaccine-record__info";
 
   let dosageSequence = document.createElement("p");
   let gender = document.createElement("p");
@@ -432,49 +348,30 @@ async function get_record(recordID) {
   vaccineBrand.innerHTML = "Vaccine Brand";
   vaccinator.innerHTML = "Name of Vaccinator";
 
-  // vaccineInfoContainer.append(vaccineInfoHeader);
-  container.append(vaccineInfoHeader);
+  cont.append(vaccineInfoHeader);
 
   const headers = [dosageSequence, gender, vaccineBrand, vaccinator];
 
   for (let i = 0; i < headers.length; i++) {
     let div = document.createElement("div");
-    div.className = "vaccine-info__header-wrapper";
+    div.className = "vaccine-record__info-header";
     div.append(headers[i]);
     vaccineInfoContainer.append(div);
   }
-
-  // headers.map((header) => {
-  //   let div = document.createElement("div");
-  //   div.className = "vaccine-info__header-wrapper";
-  //   div.append(header);
-  //   vaccineInfoContainer.append(div);
-  // });
-
-  // vaccineInfoContainer.append(dosageSequence);
-  // vaccineInfoContainer.append(gender);
-  // vaccineInfoContainer.append(vaccineBrand);
-  // vaccineInfoContainer.append(vaccinator);
 
   record.vaccine_infos.map((record) => {
     let name = document.createElement("p");
     let gender = document.createElement("p");
     let date = document.createElement("p");
     let vaccinator = document.createElement("p");
-    // let hr1 = document.createElement("hr");
 
-    name.className = "vaccine-info__values";
-    gender.className = "vaccine-info__values";
-    date.className = "vaccine-info__values";
-    vaccinator.className = "vaccine-info__values";
+    name.className = "vaccine-record__info-value";
+    gender.className = "vaccine-record__info-value";
+    date.className = "vaccine-record__info-value";
+    vaccinator.className = "vaccine-record__info-value";
 
-    // hr1.className = "grid__hr";
     name.innerHTML = `${record.dosage_sequence}`;
-    gender.innerHTML = new Date(`${record.date_administered}`)
-      .toDateString()
-      .split(" ")
-      .slice(1)
-      .join(" ");
+    gender.innerHTML = new Date(`${record.date_administered}`).toDateString().split(" ").slice(1).join(" ");
     date.innerHTML = `${record.vaccine_brand}`;
     vaccinator.innerHTML = `${record.vaccinator}`;
 
@@ -482,102 +379,129 @@ async function get_record(recordID) {
     vaccineInfoContainer.append(gender);
     vaccineInfoContainer.append(date);
     vaccineInfoContainer.append(vaccinator);
-    // vaccineInfoContainer.append(hr1);
   });
 
   cont.append(vaccineInfoContainer);
   container.append(cont);
 
-  document.querySelector("#record-view").append(container);
+  document.querySelector("#vaccine-record").append(container);
 }
 
-function newRecord_form() {
-  // Show compose view and hide other views
-  document.querySelector("#records-view").style.display = "none";
-  document.querySelector("#record-view").style.display = "none";
-  document.querySelector("#about-view").style.display = "none";
-  document.querySelector("#create-view").style.display = "block";
-
+function updateInputs() {
   const inputs = document.querySelectorAll(".google-input");
+
   inputs.forEach((input) => {
-    input.value = "";
-  });
-  // ids = [
-  //   "firstName",
-  //   "lastName",
-  //   "address",
-  //   "zipCode",
-  //   "birthdate",
-  //   "contactNumber",
+    input.addEventListener("focus", (event) => {
+      console.log("event", event.target.classList[0]);
 
-  // document.querySelector("#firstName").value = "";
-  // document.querySelector("#lastName").value = "";
-  // document.querySelector("#address").value = "";
-  // document.querySelector("#zipCode").value = "";
-  // document.querySelector(`#${id}`).value = "";
-  // document.querySelector(`#${id}`).value = "";
-
-  let vaccineBrand = "vaccineBrand0";
-  let vaccinator = "vaccinator0";
-  let dateAdministered = "dateAdministered0";
-
-  // future reference: change to vaccine_Infos.length to make it dynamic
-  // for (let i = 0; i < 4; i++) {
-  for (let i = 0; i < 1; i++) {
-    vaccineBrand = vaccineBrand.slice(0, -1) + `${i + 1}`;
-    vaccinator = vaccinator.slice(0, -1) + `${i + 1}`;
-    dateAdministered = dateAdministered.slice(0, -1) + `${i + 1}`;
-
-    // console.log("vaccineBrand current value: ", vaccineBrand);
-    // console.log("vaccine value: ", document.querySelector(`#${vaccineBrand}`).value);
-
-    // document.querySelector(`#${vaccineBrand}`).value = "";
-    // document.querySelector(`#${vaccinator}`).value = "";
-    // document.querySelector(`#${dateAdministered}`).value = "";
-  }
-
-  // document.querySelector(`#inlineRadio1`).checked = "checked";
-
-  var picker = new Pikaday({
-    field: document.getElementById("birthdate"),
-    format: "YYYY-MM-DD",
-    toString(date, format) {
-      // you should do formatting based on the passed format,
-      // but we will just return 'D/M/YYYY' for simplicity
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
-      const year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-    },
-    parse(dateString, format) {
-      // dateString is the result of `toString` method
-      const parts = dateString.split("/");
-      const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1;
-      const year = parseInt(parts[2], 10);
-      return new Date(year, month, day);
-    },
+      event.target.parentNode.querySelector("#google-label").className =
+        "google-label google-label--transform google-label--active";
+      event.target.parentNode.classList.add("google-container--active");
+      console.log("google-label--transform added...");
+    });
   });
 
-  var picker = new Pikaday({
-    field: document.getElementById("datepicker1"),
-    format: "YYYY-MM-DD",
-    toString(date, format) {
-      // you should do formatting based on the passed format,
-      // but we will just return 'D/M/YYYY' for simplicity
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
+  inputs.forEach((input) => {
+    input.addEventListener("blur", (event) => {
+      if (event.target.parentNode.querySelector(".google-input")?.value === "") {
+        event.target.parentNode.querySelector("#google-label").className = "google-label";
+      } else {
+        event.target.parentNode
+          .querySelector("#google-label")
+          .classList.replace("google-label--active", "google-label--inactive");
+      }
+
+      event.target.parentNode.className = "google-container";
+    });
+  });
+}
+
+function datePicker() {
+  const datePick = document.querySelectorAll(".dateAdministered");
+  pick = datePick[datePick.length - 1];
+  // console.log("latest", pick);
+
+  new Pikaday({
+    field: pick,
+    toString(date, format = "YYYY-MM-DD") {
+      const day = date.toLocaleString("en-US", {day: "2-digit"});
+      const month = date.toLocaleString("en-US", {month: "2-digit"});
       const year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-    },
-    parse(dateString, format) {
-      // dateString is the result of `toString` method
-      const parts = dateString.split("/");
-      const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1;
-      const year = parseInt(parts[2], 10);
-      return new Date(year, month, day);
+      return `${year}-${month}-${day}`;
     },
     yearRange: [2020, new Date().getFullYear()],
   });
+}
+
+function addVacInfo() {
+  console.log("addVacInfo was called");
+  names = ["dosageSequence", "vaccineBrand", "vaccinator", "dateAdministered"];
+  dataKeys = ["dosage_sequence", "vaccine_brand", "vaccinator", "date_administered"];
+  labels = ["Dosage Sequence", "Vaccine Brand", "Vaccinator", "Date Administered"];
+
+  const num = document.querySelectorAll(".dateAdministered").length + 1;
+
+  for (let i = 0; i < 4; i++) {
+    const dosageSequenceContainer = document.createElement("div");
+    dosageSequenceContainer.className = "google-container";
+    dosageSequenceContainer.setAttribute("id", "google-container");
+
+    const inputDosageSequence = document.createElement("input");
+    inputDosageSequence.setAttribute("id", `${names[i]}${num}`);
+    inputDosageSequence.className = `google-input vacc-input ${names[i]}`;
+    inputDosageSequence.setAttribute("data-key", `${dataKeys[i]}`);
+    inputDosageSequence.setAttribute("type", "text");
+
+    if (names[i] === "dosageSequence") {
+      inputDosageSequence.setAttribute("placeholder", "ex. First Dose");
+    } else {
+      inputDosageSequence.setAttribute("placeholder", "");
+    }
+
+    inputDosageSequence.setAttribute("required", "");
+    inputDosageSequence.setAttribute("name", `${names[i]}`);
+    inputDosageSequence.setAttribute("aria-label", `${labels[i]}`);
+
+    const googleLabel = document.createElement("div");
+    googleLabel.className = "google-label";
+    googleLabel.setAttribute("id", "google-label");
+    googleLabel.setAttribute("aria-hidden", "true");
+    googleLabel.innerHTML = `${labels[i]}`;
+
+    dosageSequenceContainer.append(inputDosageSequence);
+    dosageSequenceContainer.append(googleLabel);
+
+    document.querySelector("#new-record__wrapper2").append(dosageSequenceContainer);
+  }
+
+  console.log(`num, ${num}`);
+}
+
+function newRecord_form() {
+  document.querySelector("#new-record__wrapper2").innerHTML = "";
+  // document.querySelector("#add-more__container").innerHTML = "";
+  document.querySelector("#vaccine-records").style.display = "none";
+  document.querySelector("#vaccine-record").style.display = "none";
+  document.querySelector("#about-view").style.display = "none";
+  document.querySelector("#create-view").style.display = "block";
+
+  document.querySelectorAll(".google-input").forEach((input) => {
+    input.parentNode.querySelector("#google-label").className = "google-label";
+    input.value = "";
+  });
+
+  addVacInfo();
+  updateInputs();
+  datePicker();
+
+  // TODO: refresh button after newRecord_form() is invoked
+  // const btnContainer = document.createElement("div");
+  // btnContainer.className = "btnContainer";
+  // const btnLabel = document.createElement("p");
+  // btnLabel.className = "btnLabel";
+  // btnLabel.innerHTML = "add more";
+  // btnContainer.append(btnLabel);
+
+  // document.querySelector("#add-more__container").append(btnContainer);
+  // // btnContainer.append(btnLabel);
 }

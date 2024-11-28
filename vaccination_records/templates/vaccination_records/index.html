@@ -1,7 +1,9 @@
 {% extends "vaccination_records/layout.html" %}
 
 {% load static %}
+
 {% block body %}
+
   <h5>{{ request.user.username }}</h5>
   <button class="btn btn-sm btn-outline-primary" id="records">Vaccination records</button>
   <button class="btn btn-sm btn-outline-primary" id="create">Create new record</button>
@@ -14,25 +16,22 @@
       <div id="pikaday"></div>
     </section>
     <section>
-      <div id="record-view"></div>
+      <div id="vaccine-record" class="vaccine-record"></div>
     </section>
     <section>
-      <div id="records-view"></div>
+      <div id="vaccine-records" class="vaccine-records"></div>
     </section>
     <section>
       <div id="about-view"></div>
     </section>
     <section>
       <div id="create-view">
-
-        <div class="grid__container new-record__container">
-          <h4 class="new-record__title">
-            Personal Information
-          </h3>
+        <div class="new-record__wrapper">
+          <h4 class="new-record__title">Personal Information</h4>
           <form id="recordsForm" class="new-record__form">
-            <div class="new-record__wrapper">
-
+            <div class="new-record__container">
               <div id="google-container" class="google-container">
+
                 <input id="google-input"
                        data-key="first_name"
                        class="google-input"
@@ -107,7 +106,7 @@
               <div id="google-container" class="google-container">
                 <input id="birthdate"
                        data-key="birthdate"
-                       class="google-input datepicker"
+                       class="google-input"
                        type="text"
                        placeholder=""
                        required=""
@@ -115,57 +114,23 @@
                        aria-label="Date" />
                 <div id="google-label" class="google-label" aria-hidden="true">Date</div>
               </div>
+            </div>
+
+            <h3 class="new-record__title">Vaccine Information</h3>
+            <div id="new-record__wrapper2" class="new-record__wrapper2"></div>
+            <div class="new-record__btn-container">
+              <div class="new-record__add-btn">
+                <div class="fa-stack icon-stack add-btn__wrapper">
+                  <i class="fa-regular fa-circle fa-stack-2x add-btn__circle"></i>
+                  <i class="fa-solid fa-plus fa-stack-1x add-btn__plus"></i>
+                </div>
+              </div>
 
             </div>
-            <div class="new-record__wrapper3">
-              <h3 class="new-record__title">Vaccine Information</h3>
-              <div id="google-container" class="google-container">
-                <input class="dosageSequence google-input"
-                       data-key="dosage_sequence"
-                       type="text"
-                       placeholder=""
-                       required=""
-                       name="dosageSequence"
-                       value="First Dose"
-                       aria-label="Dosage Sequence" />
-                <div id="google-label" class="google-label" aria-hidden="true">Dosage Sequence</div>
-              </div>
 
-              <div id="google-container" class="google-container">
-                <input class="vaccineBrand google-input"
-                       data-key="vaccine_brand"
-                       type="text"
-                       placeholder=""
-                       required=""
-                       name="vaccineBrand"
-                       aria-label="Vaccine Brand" />
-                <div id="google-label" class="google-label" aria-hidden="true">Vaccine Brand</div>
-              </div>
-
-              <div id="google-container" class="google-container">
-                <input class="vaccinator google-input"
-                       data-key="vaccinator"
-                       type="text"
-                       placeholder=""
-                       required=""
-                       name="vaccinator"
-                       aria-label="Vaccinator" />
-                <div id="google-label" class="google-label" aria-hidden="true">Vaccinator</div>
-              </div>
-
-              <div id="google-container" class="google-container">
-                <input id="datepicker1"
-                       class="dateAdministered google-input"
-                       data-key="date_administered"
-                       type="text"
-                       placeholder=""
-                       required=""
-                       name="dateAdministered"
-                       aria-label="Date administered" />
-                <div id="google-label" class="google-label" aria-hidden="true">administered</div>
-              </div>
+            <div id="submit-btn__container" class="submit-btn__container">
+              <input type="submit" class="new-record__submit btn btn-primary" />
             </div>
-            <input type="submit" class="btn btn-primary" />
           </form>
         </div>
       </div>
@@ -174,65 +139,18 @@
 {% endblock %}
 
 {% block script %}
-  <script src="{% static 'vaccination_records/index.js' %}"></script>
   <script src="{% static 'vaccination_records/pikaday.js' %}"></script>
+  <script src="{% static 'vaccination_records/index.js' %}"></script>
+
   <script type="text/javascript">
-// var picker = new Pikaday({
-//     field: document.getElementById('birthdate'),
-//     format: 'YYYY-MM-DD',
-//     toString(date, format) {
-//         // you should do formatting based on the passed format,
-//         // but we will just return 'D/M/YYYY' for simplicity
-//         const day = date.getDate();
-//         const month = date.getMonth() + 1;
-//         const year = date.getFullYear();
-//         return `${day}-${month}-${year}`;
-//     },
-//     parse(dateString, format) {
-//         // dateString is the result of `toString` method
-//         const parts = dateString.split('/');
-//         const day = parseInt(parts[0], 10);
-//         const month = parseInt(parts[1], 10) - 1;
-//         const year = parseInt(parts[2], 10);
-//         return new Date(year, month, day);
-//     }
-// });
-
-
-
-    // var picker = new Pikaday({
-    //   field: document.getElementById("birthdate"),
-    //   format: 'D/M/YYYY',
-    //   toString(date, format) {
-    //       // you should do formatting based on the passed format,
-    //       // but we will just return 'D/M/YYYY' for simplicity
-    //       const day = date.getDate();
-    //       const month = date.getMonth() + 1;
-    //       const year = date.getFullYear();
-    //       return `${day}/${month}/${year}`;
-    //   }
-    //   parse(dateString, format) {
-    //       // dateString is the result of `toString` method
-    //       const parts = dateString.split('/');
-    //       const day = parseInt(parts[0], 10);
-    //       const month = parseInt(parts[1], 10) - 1;
-    //       const year = parseInt(parts[2], 10);
-    //       return new Date(year, month, day);
-    //   }
-
-
-
-    //   firstDay: 1,
-    //   minDate: new Date(),
-    //   // maxDate: new Date(2020, 12, 31),
-    //   yearRange: [1900, 2024],
-    // });
-
-    // var picker = new Pikaday({
-    //   field: document.getElementById("datepicker1"),
-    //   format: 'YYYY-MM-DD',
-    //   yearRange: [2020, new Date().getFullYear()],
-    // });
-
+  var picker = new Pikaday({
+    field: document.getElementById("birthdate"),
+    toString(date, format = "YYYY-MM-DD") {
+      const day = date.toLocaleString("en-US", {day: "2-digit"});
+      const month = date.toLocaleString("en-US", {month: "2-digit"});
+      const year = date.getFullYear();
+      return `${year}-${month}-${day}`;
+    },
+  });
   </script>
 {% endblock %}
