@@ -44,7 +44,7 @@ vaccine-records
   margin-bottom: 3em;
 }
 
-.vaccine-records__wrapper>* {
+.vaccine-records__wrapper > * {
   grid-column: 2 / -2;
   text-transform: capitalize;
 }
@@ -70,14 +70,14 @@ vaccine-records
   border: 1px solid #ccc;
 }
 
-.vaccine-records__container:hover>*,
-.vaccine-records__container:focus>* {
+.vaccine-records__container:hover > *,
+.vaccine-records__container:focus > * {
   cursor: pointer;
 }
 
 .vaccine-records__title {
-  margin: 0;
-  padding: 0.5em;
+  margin-top: 0;
+  /* padding: 0.5em; */
   grid-column: 1 / -1;
   text-align: center;
   width: 100%;
@@ -96,7 +96,7 @@ vaccine-records
   text-align: center;
 }
 
-.vaccine-records__header>* {
+.vaccine-records__header > * {
   font-weight: 700;
   text-transform: capitalize;
   display: flex;
@@ -114,11 +114,11 @@ vaccine-record
   margin-bottom: 3em;
 }
 
-.vaccine-record__container>* {
+.vaccine-record__container > * {
   grid-column: 2 / -2;
 }
 
-.vaccine-record__personnal-container {
+.vaccine-record__personal-container {
   display: grid;
   grid-template-columns: minmax(0px, 480px);
   grid-gap: 1em;
@@ -126,21 +126,20 @@ vaccine-record
   margin-bottom: 3em;
 }
 
-.vaccine-record__personnal-title {
-  margin: 0;
+.vaccine-record__personal-title {
+  margin-top: 0;
   text-align: center;
   grid-column: 1 / -1;
-  /* border: 1px solid #000; */
 }
 
-.vaccine-record__personnal-wrapper {
+.vaccine-record__personal-wrapper {
   /* border: 1px solid #000; */
   text-align: left;
   /* padding: 2em; */
   /* border: 1px solid #000; */
 }
 
-.vaccine-record__personnal-header {
+.vaccine-record__personal-header {
   margin: 0;
   text-align: center;
   font-weight: 700;
@@ -150,7 +149,7 @@ vaccine-record
   padding: 0.25em;
 }
 
-.vaccine-record__personnal-value {
+.vaccine-record__personal-value {
   margin: 0;
   padding: 0.5em 0;
   text-align: center;
@@ -179,7 +178,7 @@ vaccine-record
     "header1 header2 header3 header4";
   /* gap: 1px; */
 
-  &>* {
+  & > * {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -191,8 +190,8 @@ vaccine-record
 }
 
 .vaccine-record__info-title {
-  margin: 0;
-  padding: 0.5em;
+  margin-top: 0;
+  /* padding: 0.5em; */
   /* grid-area: title; */
   grid-column: 1 / -1;
   /* justify-self: center; */
@@ -227,7 +226,7 @@ vaccine-record
   border: none;
 }
 
-.vaccine-record__info-header>p {
+.vaccine-record__info-header > p {
   margin: 0;
   font-weight: 700;
 }
@@ -253,9 +252,10 @@ new-record star
 
 .new-record__title {
   text-align: center;
+  margin-top: 0;
 }
 
-.new-record__container>* {
+.new-record__container > * {
   grid-column: 2 / -2;
 }
 
@@ -292,17 +292,23 @@ new-record star
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 20%;
+  width: 17%;
+}
+
+.add-btn__wrapper:hover,
+.add-btn__wrapper:focus {
+  cursor: pointer;
+
+  .add-btn__plus,
+  .add-btn__circle {
+    color: black;
+  }
 }
 
 .google-container {
   display: flex;
   border: 1px solid black;
   margin: 1em;
-}
-
-.google-container:last-child {
-  margin-bottom: 0;
 }
 
 .google-container--active {
@@ -366,7 +372,7 @@ new-record star
   display: flex;
   /* align-items: center; */
   justify-content: flex-end;
-  min-height: 3em;
+  /* min-height: 3em; */
   width: 100%;
 }
 
@@ -419,22 +425,30 @@ new-record star
     grid-template-columns: repeat(4, minmax(0px, 1fr));
   }
 
-  .vaccine-record__personnal-container {
+  .vaccine-record__personal-container {
     grid-template-columns: repeat(2, minmax(0px, 480px));
   }
 
   .new-record__wrapper {
     max-width: 420px;
   }
+
+  .new-record__add-btn {
+    width: 15%;
+  }
 }
 
 @media (min-width: 720px) {
-  .vaccine-record__personnal-container {
+  .vaccine-record__personal-container {
     grid-template-columns: repeat(3, minmax(0px, 480px));
   }
 
   .new-record__wrapper {
     max-width: 480px;
+  }
+
+  .new-record__add-btn {
+    width: 15%;
   }
 }
 

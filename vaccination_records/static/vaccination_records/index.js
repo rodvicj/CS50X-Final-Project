@@ -295,20 +295,20 @@ async function get_record(recordID) {
   container.className = "vaccine-record__container";
   let personalInfoHeader = document.createElement("h3");
   personalInfoHeader.innerHTML = "Personal Information";
-  personalInfoHeader.className = "vaccine-record__personnal-title";
+  personalInfoHeader.className = "vaccine-record__personal-title";
 
   const vaccineRecordContainer = document.createElement("div");
-  vaccineRecordContainer.className = "vaccine-record__personnal-container";
-  vaccineRecordContainer.append(personalInfoHeader);
+  vaccineRecordContainer.className = "vaccine-record__personal-container";
+  container.append(personalInfoHeader);
 
   for (let i = 0; i < 6; i++) {
     let p1 = document.createElement("p");
     let p2 = document.createElement("p");
     let personInfoWrapper = document.createElement("div");
 
-    p1.className = "vaccine-record__personnal-header";
-    p2.className = "vaccine-record__personnal-value";
-    personInfoWrapper.className = "vaccine-record__personnal-wrapper";
+    p1.className = "vaccine-record__personal-header";
+    p2.className = "vaccine-record__personal-value";
+    personInfoWrapper.className = "vaccine-record__personal-wrapper";
     p1.innerHTML = names[i];
     personInfoWrapper.append(p1);
 
