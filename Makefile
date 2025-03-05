@@ -1,3 +1,7 @@
+.PHONY: activate-env
+activate-env:
+	. .venv/bin/activate
+
 .PHONY: install
 install:
 	poetry install
@@ -39,4 +43,4 @@ export:
 	poetry export --without-hashes --format=requirements.txt > requirements.txt
 
 .PHONY: update
-update: install migrate install-pre-commit ;
+	update: install migrate install-pre-commit ;

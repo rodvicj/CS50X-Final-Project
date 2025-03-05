@@ -1,3 +1,4 @@
+# from django.contrib.auth.forms import AdminPasswordChangeForm
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -24,9 +25,16 @@ class Vaccine_information(models.Model):
     def __str__(self):
         return f"{self.dosage_sequence} {self.vaccine_brand} {self.date_administered}"
 
+
 class Personal_information(models.Model):
     # TODO: add validation to make sure everything is not an empty string or ""
-    user = models.ForeignKey("User", on_delete=models.CASCADE, blank=False, null=False, related_name="added_records")
+    user = models.ForeignKey(
+        "User",
+        on_delete=models.CASCADE,
+        blank=False,
+        null=False,
+        related_name="added_records",
+    )
     first_name = models.CharField(max_length=255, blank=False, null=False)
     last_name = models.CharField(max_length=255, blank=False, null=False)
     address = models.CharField(max_length=255, blank=False, null=False)

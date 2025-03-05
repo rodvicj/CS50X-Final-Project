@@ -47,3 +47,5 @@ Here's how you could set it up:
 * **Passwords in Plain Text:**  Storing passwords directly in a sheet is extremely insecure.  Anyone with access to the sheet can see them.
 * **No Real Authentication:**  This is just a visual simulation.  Anyone can still access all sheets and data.
 * **Easily Bypassed:**  Users could easily modify the formulas or directly access the "Protected" sheet.
+
+<!-- TODO: fix poetry handling dependencies -->

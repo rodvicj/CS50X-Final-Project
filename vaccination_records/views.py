@@ -1,4 +1,5 @@
 import json
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -7,7 +8,7 @@ from django.shortcuts import HttpResponseRedirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import User, Vaccine_information, Personal_information
+from .models import Personal_information, User, Vaccine_information
 
 
 def index(request):
@@ -20,6 +21,7 @@ def index(request):
         return HttpResponseRedirect(reverse("vaccination_records:login"))
 
 
+# TODO: remove csrf_exempt to make use of csrf protection
 @csrf_exempt
 @login_required
 def get_record(request, record_id):
@@ -40,14 +42,11 @@ def get_record(request, record_id):
 @csrf_exempt
 @login_required
 def get_records(request):
-    records = Personal_information.objects.filter(user=request.user).order_by(
-        "-date_created"
-    )
+    records = Personal_information.objects.filter(user=request.user).order_by("-date_created")
 
     return JsonResponse([record.serialize() for record in records], safe=False)
 
 
-@csrf_exempt
 @login_required
 def add_record(request):
     if request.method != "POST":
@@ -67,9 +66,7 @@ def add_record(request):
         }
 
         # missing_fields = [field for field in required_fields if not data.get(field)]
-        missing_fields = [
-            required_fields[key] for key in required_fields if not data.get(key)
-        ]
+        missing_fields = [required_fields[key] for key in required_fields if not data.get(key)]
 
         if missing_fields:
             return JsonResponse(
@@ -100,12 +97,8 @@ def add_record(request):
 
         for info in vaccine_infos:
             # if ((info["dosage_sequence"] != "") and (info["date_administered"] != "") and (info["vaccine_brand"] != "") and (info["vaccinator"]) != ""):
-            if (
-                (info["dosage_sequence"])
-                and (info["date_administered"])
-                and (info["vaccine_brand"])
-                and (info["vaccinator"])
-            ):
+            if ((info["dosage_sequence"]) and (info["date_administered"]) and (info["vaccine_brand"]) and
+                (info["vaccinator"])):
                 new_vaccine_info = Vaccine_information.objects.create(
                     dosage_sequence=info["dosage_sequence"],
                     date_administered=info["date_administered"],

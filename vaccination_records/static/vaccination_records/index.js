@@ -34,6 +34,22 @@ document.addEventListener("DOMContentLoaded", function () {
   get_records();
 });
 
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    let cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      // var cookie = jQuery.trim(cookies[i])
+      let cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
 function aboutPage() {
   document.querySelector("#create-view").style.display = "none";
   document.querySelector("#vaccine-record").style.display = "none";
@@ -150,9 +166,15 @@ async function addRecord() {
   vacInfos["vaccine_infos"] = JSON.stringify(vaccineInfos);
   console.log("vacInfos", vacInfos);
 
+  // TODO: add csrf token
   try {
     const response = await fetch(`http://127.0.0.1:8000/add_record`, {
       method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
       body: JSON.stringify({
         // first_name: `${firstName}`,
         // last_name: `${lastName}`,
@@ -434,12 +456,38 @@ function datePicker() {
 }
 
 function addVacInfo() {
+  // TODO: create check if previous inputs still empty;
+
   console.log("addVacInfo was called");
   names = ["dosageSequence", "vaccineBrand", "vaccinator", "dateAdministered"];
   dataKeys = ["dosage_sequence", "vaccine_brand", "vaccinator", "date_administered"];
   labels = ["Dosage Sequence", "Vaccine Brand", "Vaccinator", "Date Administered"];
 
-  const num = document.querySelectorAll(".dateAdministered").length + 1;
+  // NOTE: check for a better solution about handling and displaying warnings;
+
+  const dosageSequence = document.querySelectorAll(".dosageSequence");
+  const num = dosageSequence.length + 1;
+  console.log("first value of dosageSequence", dosageSequence);
+
+  // if (dosageSequence.length !== 0) {
+  //   const dosageSequence = document.querySelectorAll(".dosageSequence");
+  //   const vaccinator = document.querySelectorAll(".vaccinator");
+  //   const vaccineBrand = document.querySelectorAll(".vaccineBrand");
+  //   console.log("dosageSequence is not equal to undefined", dosageSequence);
+
+  //   if (
+  //     dosageSequence[dosageSequence.length - 1].value === "" ||
+  //     vaccinator[vaccinator.length - 1].value === "" ||
+  //     vaccineBrand[vaccineBrand.length - 1].value === "" ||
+  //     dateAdministered[dateAdministered.length - 1].value === ""
+  //   ) {
+  //     alert("Please fill out all fields before adding another vaccine information.");
+  //     return;
+  //   }
+  //   console.log(dosageSequence);
+  // }
+
+  // console.log("dateAdminstered.length", document.querySelectorAll(".dateAdministered"));
 
   for (let i = 0; i < 4; i++) {
     const dosageSequenceContainer = document.createElement("div");
@@ -501,6 +549,8 @@ function newRecord_form() {
   // btnLabel.className = "btnLabel";
   // btnLabel.innerHTML = "add more";
   // btnContainer.append(btnLabel);
+
+  // TODO: dont trigger addVacInfo() if previous inputs are still empty
 
   // document.querySelector("#add-more__container").append(btnContainer);
   // // btnContainer.append(btnLabel);
