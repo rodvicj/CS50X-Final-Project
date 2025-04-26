@@ -27,117 +27,163 @@
         <div class="new-record__wrapper">
           <h3 class="new-record__title">Personal Information</h3>
           {# <form method="POST" id="recordsForm" class="new-record__form"> #}
-          <form id="recordsForm" method="post" action="{% url 'vaccination_records:add_record' %}">
-              {% csrf_token %}
-              <div class="new-record__container">
-                <div id="google-container" class="google-container">
-                  <input id="google-input"
-                         data-key="first_name"
-                         class="google-input"
-                         type="text"
-                         placeholder=""
-                         required=""
-                         name="firstName"
-                         aria-label="First name" />
-                  <div id="google-label" class="google-label" aria-hidden="true">First Name</div>
-                </div>
-
-                <div id="google-container" class="google-container">
-                  <input id="google-input"
-                         data-key="last_name"
-                         class="google-input"
-                         type="text"
-                         placeholder=""
-                         required=""
-                         name="lastName"
-                         aria-label="Last name" />
-                  <div id="google-label" class="google-label" aria-hidden="true">Last Name</div>
-                </div>
-
-                <div id="google-container" class="google-container">
-                  <input id="google-input"
-                         data-key="address"
-                         class="google-input"
-                         type="text"
-                         placeholder=""
-                         required=""
-                         name="address"
-                         aria-label="Address" />
-                  <div id="google-label" class="google-label" aria-hidden="true">Address</div>
-                </div>
-
-                <div id="google-container" class="google-container">
-                  <input id="google-input"
-                         data-key="zip_code"
-                         class="google-input"
-                         type="text"
-                         placeholder=""
-                         required=""
-                         name="zipCode"
-                         aria-label="Zip code" />
-                  <div id="google-label" class="google-label" aria-hidden="true">Zip Code</div>
-                </div>
-
-                <div id="google-container" class="google-container">
-                  <input id="google-input"
-                         data-key="contact_number"
-                         class="google-input"
-                         type="text"
-                         placeholder=""
-                         required=""
-                         name="contactNumber"
-                         aria-label="Contact number" />
-                  <div id="google-label" class="google-label" aria-hidden="true">Contact Number</div>
-                </div>
-
-                <div id="google-container" class="google-container">
-                  <input id="google-input"
-                         data-key="gender"
-                         class="google-input"
-                         type="text"
-                         placeholder=""
-                         required=""
-                         name="gender"
-                         aria-label="Gender" />
-                  <div id="google-label" class="google-label" aria-hidden="true">Gender</div>
-                </div>
-
-                <div id="google-container" class="google-container">
-                  <input id="birthdate"
-                         data-key="birthdate"
-                         class="google-input"
-                         type="text"
-                         placeholder=""
-                         required=""
-                         name="date"
-                         aria-label="Date" />
-                  <div id="google-label" class="google-label" aria-hidden="true">Date</div>
-                </div>
+          <form id="recordsForm"
+                method="post"
+                action="{% url 'vaccination_records:add_record' %}">
+            {% csrf_token %}
+            <div class="new-record__container">
+              <div id="google-container" class="google-container">
+                <input id="google-input"
+                       data-key="first_name"
+                       class="google-input"
+                       type="text"
+                       placeholder=""
+                       required=""
+                       name="firstName"
+                       aria-label="First name" />
+                <div id="google-label" class="google-label" aria-hidden="true">First Name</div>
               </div>
 
-              <h3 class="new-record__title">Vaccine Information</h3>
-              <div id="new-record__wrapper2" class="new-record__wrapper2"></div>
-              <div class="new-record__btn-container">
-                <div class="new-record__add-btn">
-                  <div class="fa-stack icon-stack add-btn__wrapper">
-                    <i class="fa-regular fa-circle fa-stack-2x add-btn__circle"></i>
-                    <i class="fa-solid fa-plus fa-stack-1x add-btn__plus"></i>
-                  </div>
+              <div id="google-container" class="google-container">
+                <input id="google-input"
+                       data-key="last_name"
+                       class="google-input"
+                       type="text"
+                       placeholder=""
+                       required=""
+                       name="lastName"
+                       aria-label="Last name" />
+                <div id="google-label" class="google-label" aria-hidden="true">Last Name</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="google-input"
+                       data-key="address"
+                       class="google-input"
+                       type="text"
+                       placeholder=""
+                       required=""
+                       name="address"
+                       aria-label="Address" />
+                <div id="google-label" class="google-label" aria-hidden="true">Address</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="google-input"
+                       data-key="zip_code"
+                       class="google-input"
+                       type="text"
+                       placeholder=""
+                       required=""
+                       name="zipCode"
+                       aria-label="Zip code" />
+                <div id="google-label" class="google-label" aria-hidden="true">Zip Code</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="google-input"
+                       data-key="contact_number"
+                       class="google-input"
+                       type="text"
+                       placeholder=""
+                       required=""
+                       name="contactNumber"
+                       aria-label="Contact number" />
+                <div id="google-label" class="google-label" aria-hidden="true">Contact Number</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="google-input"
+                       data-key="gender"
+                       class="google-input"
+                       type="text"
+                       placeholder=""
+                       required=""
+                       name="gender"
+                       aria-label="Gender" />
+                <div id="google-label" class="google-label" aria-hidden="true">Gender</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="birthdate"
+                       data-key="birthdate"
+                       class="google-input"
+                       type="text"
+                       placeholder=""
+                       required=""
+                       name="date"
+                       aria-label="Date" />
+                <div id="google-label" class="google-label" aria-hidden="true">Date</div>
+              </div>
+            </div>
+
+            <h3 class="new-record__title">Vaccine Information</h3>
+            <div id="new-record__wrapper2" class="new-record__wrapper2">
+
+              <div id="google-container" class="google-container">
+                <input id="dosageSequence0"
+                       class="google-input vacc-input dosageSequence"
+                       data-key="dosage_sequence"
+                       placeholder="ex. First Dose, Second Dose, etc"
+                       required=""
+                       name="dosageSequence"
+                       aria-label="Dosage Sequence" />
+                <div id="google-label" class="google-label" aria-hidden="true">Dosage Sequence</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="vaccineBrand0"
+                       class="google-input vacc-input vaccineBrand"
+                       data-key="vaccine_brand"
+                       required=""
+                       name="dosageSequence"
+                       aria-label="Dosage Sequence" />
+                <div id="google-label" class="google-label" aria-hidden="true">Vaccine Brand</div>
+              </div>
+
+              <div id="google-container" class="google-container">
+                <input id="vaccinator0"
+                       class="google-input vacc-input vaccinator"
+                       data-key="vaccinator"
+                       required=""
+                       name="dosageSequence"
+                       aria-label="Dosage Sequence" />
+                <div id="google-label" class="google-label" aria-hidden="true">Vaccinator</div>
+              </div>
+
+              {# NOTE:fix dateAdministered className conflict in index.js #}
+              <div id="google-container" class="google-container">
+                <input id="dateAdministered0"
+                       class="google-input vacc-input dateAdministered"
+                       data-key="date_administered"
+                       required=""
+                       name="dosageSequence"
+                       aria-label="Dosage Sequence" />
+                <div id="google-label" class="google-label" aria-hidden="true">Date Administered</div>
+              </div>
+
+            </div>
+            <div class="new-record__btn-container">
+              <div class="new-record__add-btn">
+                <div class="fa-stack icon-stack add-btn__wrapper">
+                  <i class="fa-regular fa-circle fa-stack-2x add-btn__circle"></i>
+                  <i class="fa-solid fa-plus fa-stack-1x add-btn__plus"></i>
                 </div>
               </div>
-              <div id="submit-btn__container" class="submit-btn__container">
-                <input type="submit" class="new-record__submit btn btn-primary" />
-              </div>
-            </form>
-          </div>
+            </div>
+            <div id="submit-btn__container" class="submit-btn__container">
+              <input type="submit" class="new-record__submit btn btn-primary" />
+            </div>
+          </form>
         </div>
-      </section>
-    </main>
-  {% endblock %}
-  {% block script %}
-    <script src="{% static 'vaccination_records/pikaday.js' %}"></script>
-    <script src="{% static 'vaccination_records/index.js' %}"></script>
-    <script type="text/javascript">
+      </div>
+    </section>
+  </main>
+{% endblock %}
+{% block script %}
+  <script src="{% static 'vaccination_records/pikaday.js' %}"></script>
+  <script src="{% static 'vaccination_records/index.js' %}"></script>
+  <script type="text/javascript">
   var picker = new Pikaday({
     field: document.getElementById("birthdate"),
     toString(date, format = "YYYY-MM-DD") {
@@ -147,5 +193,16 @@
       return `${year}-${month}-${day}`;
     },
   });
-    </script>
-  {% endblock %}
+
+  var picker = new Pikaday({
+    field: document.getElementById("dateAdministered0"),
+    toString(date, format = "YYYY-MM-DD") {
+      const day = date.toLocaleString("en-US", {day: "2-digit"});
+      const month = date.toLocaleString("en-US", {month: "2-digit"});
+      const year = date.getFullYear();
+      return `${year}-${month}-${day}`;
+    },
+  });
+  </script>
+
+{% endblock %}

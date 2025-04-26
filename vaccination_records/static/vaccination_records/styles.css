@@ -35,6 +35,43 @@ body {
 }
 
 /* ====================
+login container
+==================== */
+
+.login__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.login__title {
+  margin: 0;
+  padding-bottom: .5em;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login__form>* {
+  padding-bottom: 0.5em;
+}
+
+.login__form--btn {
+  padding: 0;
+  padding: 0.25em 1em;
+  margin-bottom: 1em;
+}
+
+.login__cta {
+  margin: 0;
+}
+
+/* ====================
 vaccine-records
 ==================== */
 
@@ -44,7 +81,7 @@ vaccine-records
   margin-bottom: 3em;
 }
 
-.vaccine-records__wrapper > * {
+.vaccine-records__wrapper>* {
   grid-column: 2 / -2;
   text-transform: capitalize;
 }
@@ -70,8 +107,8 @@ vaccine-records
   border: 1px solid #ccc;
 }
 
-.vaccine-records__container:hover > *,
-.vaccine-records__container:focus > * {
+.vaccine-records__container:hover>*,
+.vaccine-records__container:focus>* {
   cursor: pointer;
 }
 
@@ -96,7 +133,7 @@ vaccine-records
   text-align: center;
 }
 
-.vaccine-records__header > * {
+.vaccine-records__header>* {
   font-weight: 700;
   text-transform: capitalize;
   display: flex;
@@ -114,7 +151,7 @@ vaccine-record
   margin-bottom: 3em;
 }
 
-.vaccine-record__container > * {
+.vaccine-record__container>* {
   grid-column: 2 / -2;
 }
 
@@ -178,7 +215,7 @@ vaccine-record
     "header1 header2 header3 header4";
   /* gap: 1px; */
 
-  & > * {
+  &>* {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,7 +263,7 @@ vaccine-record
   border: none;
 }
 
-.vaccine-record__info-header > p {
+.vaccine-record__info-header>p {
   margin: 0;
   font-weight: 700;
 }
@@ -255,7 +292,7 @@ new-record star
   margin-top: 0;
 }
 
-.new-record__container > * {
+.new-record__container>* {
   grid-column: 2 / -2;
 }
 
@@ -364,6 +401,10 @@ new-record star
 
 .google-label--transform {
   transform: scale(0.75) translateY(-19px);
+}
+
+.alert-red {
+  border: 1px solid red;
 }
 
 /* TODO: make this container to the end of another container */

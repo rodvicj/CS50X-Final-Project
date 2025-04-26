@@ -1,7 +1,3 @@
-.PHONY: activate-env
-activate-env:
-	. .venv/bin/activate
-
 .PHONY: install
 install:
 	poetry install

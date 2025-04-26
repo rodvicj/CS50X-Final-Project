@@ -439,9 +439,10 @@ function updateInputs() {
 }
 
 function datePicker() {
-  const datePick = document.querySelectorAll(".dateAdministered");
+  // const datePick = document.querySelectorAll(".dateAdministered");
+  const datePick = document.querySelectorAll(".datePick");
   pick = datePick[datePick.length - 1];
-  // console.log("latest", pick);
+  console.log("latest", pick);
 
   new Pikaday({
     field: pick,
@@ -469,25 +470,44 @@ function addVacInfo() {
   const num = dosageSequence.length + 1;
   console.log("first value of dosageSequence", dosageSequence);
 
-  // if (dosageSequence.length !== 0) {
-  //   const dosageSequence = document.querySelectorAll(".dosageSequence");
-  //   const vaccinator = document.querySelectorAll(".vaccinator");
-  //   const vaccineBrand = document.querySelectorAll(".vaccineBrand");
-  //   console.log("dosageSequence is not equal to undefined", dosageSequence);
+  if (dosageSequence.length !== 0) {
+    const dosageSequence = document.querySelectorAll(".dosageSequence");
+    const vaccinator = document.querySelectorAll(".vaccinator");
+    const vaccineBrand = document.querySelectorAll(".vaccineBrand");
+    const dateAdministered = document.querySelectorAll(".dateAdministered");
+    console.log("dosageSequence is not equal to undefined", dosageSequence);
 
-  //   if (
-  //     dosageSequence[dosageSequence.length - 1].value === "" ||
-  //     vaccinator[vaccinator.length - 1].value === "" ||
-  //     vaccineBrand[vaccineBrand.length - 1].value === "" ||
-  //     dateAdministered[dateAdministered.length - 1].value === ""
-  //   ) {
-  //     alert("Please fill out all fields before adding another vaccine information.");
-  //     return;
-  //   }
-  //   console.log(dosageSequence);
-  // }
+    // if (
+    //   dosageSequence[dosageSequence.length - 1].value === "" ||
+    //   vaccinator[vaccinator.length - 1].value === "" ||
+    //   vaccineBrand[vaccineBrand.length - 1].value === "" ||
+    //   dateAdministered[dateAdministered.length - 1].value === ""
+    // ) {
+    //   alert("Please fill out all fields before adding another vaccine information.");
+    //   return;
+    // }
 
-  // console.log("dateAdminstered.length", document.querySelectorAll(".dateAdministered"));
+    if (dosageSequence[dosageSequence.length - 1].value === "") {
+      // dosageSequence[dosageSequence.length - 1].style.color = "red";
+      dosageSequence[dosageSequence.length - 1].parentElement.classList.add("alert-red");
+      console.log("color red");
+      return console.log("err", dosageSequence[dosageSequence.length - 1]);
+    } else if (vaccinator[vaccinator.length - 1].value === "") {
+      return console.log("err", vaccinator[vaccinator.length - 1]);
+    } else if (vaccineBrand[vaccineBrand.length - 1].value === "") {
+      return console.log("err", vaccineBrand[vaccineBrand.length - 1]);
+    } else if (dateAdministered[dateAdministered.length - 1].value === "") {
+      return console.log("err", dateAdministered[dateAdministered.length - 1]);
+    }
+
+    console.log(dosageSequence);
+  }
+
+  console.log("dateAdminstered.length", document.querySelectorAll(".dateAdministered"));
+
+  names = ["dosageSequence", "vaccineBrand", "vaccinator", "dateAdministered"];
+  dataKeys = ["dosage_sequence", "vaccine_brand", "vaccinator", "date_administered"];
+  labels = ["Dosage Sequence", "Vaccine Brand", "Vaccinator", "Date Administered"];
 
   for (let i = 0; i < 4; i++) {
     const dosageSequenceContainer = document.createElement("div");
@@ -497,6 +517,9 @@ function addVacInfo() {
     const inputDosageSequence = document.createElement("input");
     inputDosageSequence.setAttribute("id", `${names[i]}${num}`);
     inputDosageSequence.className = `google-input vacc-input ${names[i]}`;
+    if (names[i] === "dateAdministered") {
+      inputDosageSequence.classList.add("datePick");
+    }
     inputDosageSequence.setAttribute("data-key", `${dataKeys[i]}`);
     inputDosageSequence.setAttribute("type", "text");
 
@@ -526,7 +549,7 @@ function addVacInfo() {
 }
 
 function newRecord_form() {
-  document.querySelector("#new-record__wrapper2").innerHTML = "";
+  // document.querySelector("#new-record__wrapper2").innerHTML = "";
   // document.querySelector("#add-more__container").innerHTML = "";
   document.querySelector("#vaccine-records").style.display = "none";
   document.querySelector("#vaccine-record").style.display = "none";
@@ -538,7 +561,9 @@ function newRecord_form() {
     input.value = "";
   });
 
-  addVacInfo();
+  // NOTE: add to default template the initial value of VacInfo();
+
+  // addVacInfo();
   updateInputs();
   datePicker();
 
