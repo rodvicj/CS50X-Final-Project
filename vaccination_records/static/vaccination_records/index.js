@@ -116,7 +116,7 @@ async function addRecord() {
   // personal information
   const inputs = document.querySelectorAll(".google-input");
   console.log("inputs", inputs);
-  keys = {};
+  const keys = {};
   inputs.forEach((input) => {
     console.log("input value", input.dataset.key);
 
@@ -216,11 +216,11 @@ async function get_records() {
   const main_container = document.createElement("div");
   main_container.id = "main_container";
 
-  const response = await fetch(`http://127.0.0.1:8000/get_records`);
-  const json = await response.json();
-
   const container = document.createElement("div");
   container.className = "container";
+
+  const response = await fetch(`http://127.0.0.1:8000/get_records`);
+  const json = await response.json();
 
   if (json.length === 0) {
     const notice = document.createElement("p");
@@ -274,7 +274,6 @@ async function get_records() {
       name.innerHTML = `${record.name}`;
       gender.innerHTML = `${record.gender}`;
       date.innerHTML = `${record.date_created.slice(0, 11)}`;
-
       record.vaccine_infos.map((info) => {
         if (info.date_administered === undefined) {
           return;
@@ -414,22 +413,19 @@ function updateInputs() {
 
   inputs.forEach((input) => {
     input.addEventListener("focus", (event) => {
-      console.log("event", event.target.classList[0]);
-
-      event.target.parentNode.querySelector("#google-label").className =
-        "google-label google-label--transform google-label--active";
+      event.target.parentNode.querySelector(".google-label").className = "google-label google-label--transform google-label--active";
       event.target.parentNode.classList.add("google-container--active");
-      console.log("google-label--transform added...");
+      // console.log("google-label--transform added...");
     });
   });
 
   inputs.forEach((input) => {
     input.addEventListener("blur", (event) => {
       if (event.target.parentNode.querySelector(".google-input")?.value === "") {
-        event.target.parentNode.querySelector("#google-label").className = "google-label";
+        event.target.parentNode.querySelector(".google-label").className = "google-label";
       } else {
         event.target.parentNode
-          .querySelector("#google-label")
+          .querySelector(".google-label")
           .classList.replace("google-label--active", "google-label--inactive");
       }
 
@@ -439,10 +435,8 @@ function updateInputs() {
 }
 
 function datePicker() {
-  // const datePick = document.querySelectorAll(".dateAdministered");
   const datePick = document.querySelectorAll(".datePick");
   pick = datePick[datePick.length - 1];
-  console.log("latest", pick);
 
   new Pikaday({
     field: pick,
@@ -476,16 +470,6 @@ function addVacInfo() {
     const vaccineBrand = document.querySelectorAll(".vaccineBrand");
     const dateAdministered = document.querySelectorAll(".dateAdministered");
     console.log("dosageSequence is not equal to undefined", dosageSequence);
-
-    // if (
-    //   dosageSequence[dosageSequence.length - 1].value === "" ||
-    //   vaccinator[vaccinator.length - 1].value === "" ||
-    //   vaccineBrand[vaccineBrand.length - 1].value === "" ||
-    //   dateAdministered[dateAdministered.length - 1].value === ""
-    // ) {
-    //   alert("Please fill out all fields before adding another vaccine information.");
-    //   return;
-    // }
 
     if (dosageSequence[dosageSequence.length - 1].value === "") {
       // dosageSequence[dosageSequence.length - 1].style.color = "red";
@@ -549,8 +533,6 @@ function addVacInfo() {
 }
 
 function newRecord_form() {
-  // document.querySelector("#new-record__wrapper2").innerHTML = "";
-  // document.querySelector("#add-more__container").innerHTML = "";
   document.querySelector("#vaccine-records").style.display = "none";
   document.querySelector("#vaccine-record").style.display = "none";
   document.querySelector("#about-view").style.display = "none";
@@ -559,6 +541,11 @@ function newRecord_form() {
   document.querySelectorAll(".google-input").forEach((input) => {
     input.parentNode.querySelector("#google-label").className = "google-label";
     input.value = "";
+  });
+
+  // reset alert-red className after create new record button is clicked
+  document.querySelectorAll(".google-container").forEach((container) => {
+    container.className = "google-container";
   });
 
   // NOTE: add to default template the initial value of VacInfo();
